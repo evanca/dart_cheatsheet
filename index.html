@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dart Data Structures & Algorithms Cheatsheet</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Dart DSA Cheatsheet</h1>
+            <p>A concise, beautifully formatted reference for Dart algorithms, collections, and data structures.</p>
+        </div>
+        <div class="header-meta">
+            <span>dart:core & dart:collection</span>
+        </div>
+    </header>
+    
+    <main class="grid-container">
+        <!-- Lists -->
+        <section class="card">
+            <h2>Lists (Dynamic Arrays)</h2>
+            <div class="code-block">
+                <pre><code><span class="keyword">var</span> list = &lt;<span class="type">int</span>&gt;[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];
+
+<span class="comment">// Initialization</span>
+<span class="keyword">var</span> zeros = <span class="type">List</span>.filled(<span class="number">5</span>, <span class="number">0</span>);
+<span class="keyword">var</span> grid = <span class="type">List</span>.generate(<span class="number">3</span>, (_) => <span class="type">List</span>.filled(<span class="number">3</span>, <span class="number">0</span>));
+
+<span class="comment">// O(1) Operations</span>
+list.add(<span class="number">4</span>);          <span class="comment">// Append</span>
+list.last;            <span class="comment">// Peek end</span>
+list.removeLast();    <span class="comment">// Pop end</span>
+
+<span class="comment">// O(N) Operations</span>
+list.insert(<span class="number">0</span>, <span class="number">99</span>);   <span class="comment">// Insert at given index</span>
+list.removeAt(<span class="number">0</span>);     <span class="comment">// Remove at index</span>
+list.indexOf(<span class="number">2</span>);      <span class="comment">// Find index of element</span>
+
+<span class="comment">// Spread & Destructuring</span>
+<span class="keyword">var</span> combined = [...list, <span class="number">4</span>, <span class="number">5</span>];
+
+<span class="comment">// Iteration (O(N))</span>
+<span class="keyword">for</span> (<span class="keyword">var</span> item <span class="keyword">in</span> list) { }
+list.forEach((item) => <span class="built_in">print</span>(item));
+</code></pre>
+            </div>
+        </section>
+
+        <!-- Maps -->
+        <section class="card">
+            <h2>Maps (Hash Tables)</h2>
+            <div class="code-block">
+                <pre><code><span class="keyword">var</span> map = &lt;<span class="type">String</span>, <span class="type">int</span>&gt;{<span class="string">'a'</span>: <span class="number">1</span>};
+
+<span class="comment">// O(1) Avg Operations</span>
+map[<span class="string">'b'</span>] = <span class="number">2</span>;         <span class="comment">// Insert or Update</span>
+map.remove(<span class="string">'a'</span>);      <span class="comment">// Delete</span>
+map.containsKey(<span class="string">'b'</span>); <span class="comment">// Quick check</span>
+
+<span class="comment">// Advanced Insertion</span>
+map.putIfAbsent(<span class="string">'c'</span>, () => <span class="number">3</span>);
+map.update(<span class="string">'b'</span>, (v) => v + <span class="number">1</span>, ifAbsent: () => <span class="number">1</span>);
+
+<span class="comment">// Iteration (O(N))</span>
+<span class="keyword">for</span> (<span class="keyword">var</span> entry <span class="keyword">in</span> map.entries) {
+  <span class="built_in">print</span>(<span class="string">'\${entry.key}: \${entry.value}'</span>);
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Sets -->
+        <section class="card">
+            <h2>Sets (Hash Sets)</h2>
+            <div class="code-block">
+                <pre><code><span class="keyword">var</span> set = &lt;<span class="type">int</span>&gt;{<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>};
+
+<span class="comment">// O(1) Avg Operations</span>
+set.add(<span class="number">4</span>);
+set.remove(<span class="number">2</span>);
+set.contains(<span class="number">3</span>);      <span class="comment">// Extremely fast lookup</span>
+
+<span class="comment">// O(N) Set Mathematics</span>
+<span class="keyword">var</span> a = {<span class="number">1</span>, <span class="number">2</span>}, b = {<span class="number">2</span>, <span class="number">3</span>};
+a.union(b);           <span class="comment">// {1, 2, 3}</span>
+a.intersection(b);    <span class="comment">// {2}</span>
+a.difference(b);      <span class="comment">// {1}</span></code></pre>
+            </div>
+        </section>
+
+        <!-- Stacks -->
+        <section class="card">
+            <h2>Stacks (LIFO)</h2>
+            <p class="subtitle">Dart uses <code>List</code>. Never insert at index 0.</p>
+            <div class="code-block">
+                <pre><code><span class="keyword">var</span> stack = &lt;<span class="type">int</span>&gt;[];
+
+<span class="comment">// Push (O(1))</span>
+stack.add(<span class="number">1</span>);
+stack.add(<span class="number">2</span>);
+
+<span class="comment">// Pop (O(1))</span>
+<span class="keyword">if</span> (stack.isNotEmpty) {
+  <span class="keyword">var</span> top = stack.removeLast(); <span class="comment">// returns 2</span>
+}
+
+<span class="comment">// Peek (O(1))</span>
+<span class="keyword">var</span> peek = stack.last;          <span class="comment">// gives 1</span></code></pre>
+            </div>
+        </section>
+
+        <!-- Queues -->
+        <section class="card">
+            <h2>Queues (FIFO & Deque)</h2>
+            <p class="subtitle">Uses <code>dart:collection</code>. Circular buffer backed.</p>
+            <div class="code-block">
+                <pre><code><span class="keyword">import</span> <span class="string">'dart:collection'</span>;
+
+<span class="keyword">var</span> queue = <span class="type">Queue</span>&lt;<span class="type">int</span>&gt;(); <span class="comment">// A DoubleLinkedQueue</span>
+
+<span class="comment">// FIFO: Enqueue & Dequeue (O(1))</span>
+queue.addLast(<span class="number">1</span>);     <span class="comment">// Alias: queue.add()</span>
+<span class="keyword">if</span> (queue.isNotEmpty) {
+  <span class="keyword">var</span> front = queue.removeFirst();
+}
+
+<span class="comment">// Deque: Double-Ended Operations (O(1))</span>
+queue.addFirst(<span class="number">0</span>);    <span class="comment">// Push front</span>
+queue.removeLast();   <span class="comment">// Pop back</span>
+queue.first;          <span class="comment">// Peek front</span>
+queue.last;           <span class="comment">// Peek back</span></code></pre>
+            </div>
+        </section>
+        
+        <!-- Trees / Sorted -->
+        <section class="card">
+            <h2>Trees & Sorted Collections</h2>
+            <p class="subtitle">Self-balancing binary trees</p>
+            <div class="code-block">
+                <pre><code><span class="keyword">import</span> <span class="string">'dart:collection'</span>;
+
+<span class="comment">// Sorted Map (SplayTreeMap) - O(log N)</span>
+<span class="keyword">var</span> treeMap = <span class="type">SplayTreeMap</span>&lt;<span class="type">int</span>, <span class="type">String</span>&gt;();
+treeMap[<span class="number">3</span>] = <span class="string">'C'</span>;
+treeMap[<span class="number">1</span>] = <span class="string">'A'</span>;
+<span class="built_in">print</span>(treeMap.firstKey()); <span class="comment">// Iterates pre-sorted: 1</span>
+
+<span class="comment">// Sorted Set (SplayTreeSet) - O(log N)</span>
+<span class="keyword">var</span> treeSet = <span class="type">SplayTreeSet</span>&lt;<span class="type">int</span>&gt;();
+treeSet.addAll([<span class="number">5</span>, <span class="number">1</span>, <span class="number">8</span>]);
+<span class="built_in">print</span>(treeSet.first); <span class="comment">// Returns 1 optimally</span></code></pre>
+            </div>
+        </section>
+
+        <!-- Sorting & Algos -->
+        <section class="card">
+            <h2>Common Algorithms</h2>
+            <div class="code-block">
+                <pre><code><span class="comment">// In-place Sorting (O(N log N))</span>
+<span class="keyword">var</span> arr = [<span class="number">3</span>, <span class="number">1</span>, <span class="number">5</span>];
+arr.sort((a,b) => a.compareTo(b)); <span class="comment">// Ascending</span>
+arr.sort((a,b) => b.compareTo(a)); <span class="comment">// Descending</span>
+
+<span class="comment">// Functional Iterators (Lazy Evaluated)</span>
+<span class="keyword">var</span> evens = arr.where((x) => x.isEven);
+<span class="keyword">var</span> mapped = arr.map((x) => x * <span class="number">2</span>);
+<span class="keyword">var</span> sum = arr.reduce((a, b) => a + b);
+
+<span class="comment">// Maximum value</span>
+<span class="keyword">import</span> <span class="string">'dart:math'</span>;
+<span class="keyword">var</span> maxVal = arr.reduce(max);
+
+<span class="comment">// String manipulations</span>
+<span class="keyword">var</span> s = <span class="string">"hello"</span>;
+<span class="keyword">var</span> reversed = s.split(<span class="string">''</span>).reversed.join();</code></pre>
+            </div>
+        </section>
+
+        <!-- Math & Operators -->
+        <section class="card">
+            <h2>Math & Operators</h2>
+            <div class="code-block">
+                <pre><code><span class="comment">// Truncating Division & Modulo</span>
+<span class="keyword">var</span> div = <span class="number">5</span> ~/ <span class="number">2</span>;     <span class="comment">// 2 (Integer div)</span>
+<span class="keyword">var</span> mod = <span class="number">5</span> % <span class="number">2</span>;      <span class="comment">// 1 (Remainder)</span>
+
+<span class="comment">// Properties</span>
+<span class="built_in">print</span>(<span class="number">5</span>.isEven);      <span class="comment">// false</span>
+<span class="built_in">print</span>(<span class="number">5</span>.isOdd);       <span class="comment">// true</span>
+<span class="built_in">print</span>((-<span class="number">5</span>).abs());    <span class="comment">// 5</span>
+
+<span class="comment">// Bitwise AND (&) - 1 if both bits are 1
+// 5 = 101
+// 1 = 001
+// ---------
+//     001  → 1</span>
+<span class="keyword">var</span> and = <span class="number">5</span> & <span class="number">1</span>;
+
+<span class="comment">// Bitwise OR (|) - 1 if either bit is 1
+// 5 = 101
+// 2 = 010
+// ---------
+//     111  → 7</span>
+<span class="keyword">var</span> or = <span class="number">5</span> | <span class="number">2</span>;
+
+<span class="comment">// Bitwise XOR (^) - 1 if bits are different
+// 5 = 101
+// 1 = 001
+// ---------
+//     100  → 4</span>
+<span class="keyword">var</span> xor = <span class="number">5</span> ^ <span class="number">1</span>;
+
+<span class="comment">// Shift Left (&lt;&lt;) - Shifts bits left by n
+// 1 = 001
+// &lt;&lt; 2
+// ---------
+//     100  → 4</span>
+<span class="keyword">var</span> shift = <span class="number">1</span> &lt;&lt; <span class="number">2</span>;</code></pre>
+            </div>
+        </section>
+
+        <!-- Matrices -->
+        <section class="card">
+            <h2>Matrices (2D Grids)</h2>
+            <div class="code-block">
+                <pre><code><span class="keyword">var</span> grid = [
+  [<span class="number">1</span>, <span class="number">2</span>],
+  [<span class="number">3</span>, <span class="number">4</span>]
+];
+<span class="comment">// Flattening a 2D array</span>
+<span class="keyword">var</span> flat = grid.expand((i) => i).toList();
+
+<span class="comment">// 2D Iteration</span>
+<span class="keyword">for</span> (<span class="keyword">var</span> r = <span class="number">0</span>; r &lt; grid.length; r++) {
+  <span class="keyword">for</span> (<span class="keyword">var</span> c = <span class="number">0</span>; c &lt; grid[r].length; c++) {
+    <span class="keyword">var</span> val = grid[r][c];
+  }
+}
+
+<span class="comment">// 4-Directional Traversal</span>
+<span class="keyword">var</span> dirs = [[<span class="number">0</span>,<span class="number">1</span>], [<span class="number">1</span>,<span class="number">0</span>], [<span class="number">0</span>,-<span class="number">1</span>], [-<span class="number">1</span>,<span class="number">0</span>]];
+<span class="keyword">for</span> (<span class="keyword">var</span> d <span class="keyword">in</span> dirs) {
+  <span class="keyword">var</span> nr = r + d[<span class="number">0</span>], nc = c + d[<span class="number">1</span>];
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Recursion -->
+        <section class="card">
+            <h2>Recursion & Memoization</h2>
+            <div class="code-block">
+                <pre><code><span class="keyword">var</span> memo = &lt;<span class="type">int</span>, <span class="type">int</span>&gt;{};
+
+<span class="type">int</span> fib(<span class="type">int</span> n) {
+  <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> n;
+  <span class="keyword">if</span> (memo.containsKey(n)) <span class="keyword">return</span> memo[n]!;
+  <span class="keyword">return</span> memo[n] = fib(n - <span class="number">1</span>) + fib(n - <span class="number">2</span>);
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Graph Traversals -->
+        <section class="card">
+            <h2>Graph Traversal (BFS / DFS)</h2>
+            <div class="code-block">
+                <pre><code><span class="keyword">var</span> graph = &lt;<span class="type">int</span>, <span class="type">List</span>&lt;<span class="type">int</span>&gt;&gt;{
+  <span class="number">1</span>: [<span class="number">2</span>, <span class="number">3</span>], <span class="number">2</span>: [<span class="number">4</span>], <span class="number">3</span>: [], <span class="number">4</span>: []
+};
+
+<span class="comment">// BFS (Queue)</span>
+<span class="keyword">void</span> bfs(<span class="type">int</span> start) {
+  <span class="keyword">var</span> q = <span class="type">Queue</span>&lt;<span class="type">int</span>&gt;()..add(start);
+  <span class="keyword">var</span> vis = &lt;<span class="type">int</span>&gt;{start};
+  
+  <span class="keyword">while</span> (q.isNotEmpty) {
+    <span class="keyword">var</span> node = q.removeFirst();
+    <span class="keyword">for</span> (<span class="keyword">var</span> next <span class="keyword">in</span> graph[node] ?? []) {
+      <span class="keyword">if</span> (vis.add(next)) q.add(next);
+    }
+  }
+}
+
+<span class="comment">// DFS (Recursive)</span>
+<span class="keyword">var</span> vis = &lt;<span class="type">int</span>&gt;{};
+<span class="keyword">void</span> dfs(<span class="type">int</span> node) {
+  <span class="keyword">if</span> (!vis.add(node)) <span class="keyword">return</span>;
+  <span class="keyword">for</span> (<span class="keyword">var</span> next <span class="keyword">in</span> graph[node] ?? []) dfs(next);
+}</code></pre>
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>
