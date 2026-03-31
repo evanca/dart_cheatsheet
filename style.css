@@ -212,6 +212,27 @@ header p {
     }
 }
 
+.site-footer {
+    text-align: center;
+    padding: 4rem 0 2rem;
+    font-size: 0.85rem;
+    color: var(--comment);
+    margin-top: 3rem;
+    border-top: 1px solid var(--border-color);
+    column-span: all;
+    break-inside: avoid;
+}
+
+.site-footer a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
 /* Landscape Print Optimization */
 @media print {
     @page { 

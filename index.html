@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dart Data Structures & Algorithms Cheatsheet</title>
+    <meta name="description" content="The ultimate Dart data structures algorithms and Flutter data structures algorithms cheatsheet. Fast open-source reference for lists, maps, sets, queues, BFS, DFS, and core optimizations.">
+    <meta name="keywords" content="dart data structures algorithms, flutter data structures algorithms, dart dsa, flutter dsa, dart algorithms, flutter collections, dart collections">
+    <meta name="author" content="Ivanna">
+    <meta property="og:title" content="Dart & Flutter Data Structures and Algorithms Cheatsheet">
+    <meta property="og:description" content="A comprehensive cheatsheet for Dart data structures algorithms and Flutter collections.">
+    <meta property="og:type" content="website">
+    <title>Dart & Flutter Data Structures and Algorithms Cheatsheet</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,12 +20,22 @@
             document.documentElement.setAttribute('data-theme', 'dark');
         }
     </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TFQ3XG9DX3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-TFQ3XG9DX3');
+    </script>
 </head>
 <body>
     <header>
         <div class="header-content">
-            <h1>Dart DSA Cheatsheet</h1>
-            <p>A concise, beautifully formatted reference for Dart algorithms, collections, and data structures.</p>
+            <h1>Data Structures and Algorithms in Dart & Flutter (Printable Guide)</h1>
+            <p>A practical, printable reference with clear examples in Dart and real Flutter use cases</p>
         </div>
         <div class="header-meta">
             <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
@@ -305,7 +321,14 @@ arr.sort((a,b) => b.compareTo(a)); <span class="comment">// Descending</span>
         </section>
 
     </main>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year"></span> <a href="https://happycode.studio" target="_blank" rel="noopener noreferrer">happycode.studio</a>. All rights reserved.</p>
+    </footer>
+
     <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
         const btn = document.getElementById('theme-toggle');
         const icon = document.getElementById('theme-icon');
         const moonPath = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
