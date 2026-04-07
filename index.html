@@ -435,10 +435,16 @@ record.name;    <span class="comment">// 'Dart'</span>
         const printOnePageBtn = document.getElementById('print-one-page');
 
         printCompactBtn.addEventListener('click', () => {
+            if (typeof gtag === 'function') {
+                gtag('event', 'print_compact_clicked');
+            }
             window.open('print.html?mode=compact&t=' + Date.now(), '_blank');
         });
 
         printOnePageBtn.addEventListener('click', () => {
+            if (typeof gtag === 'function') {
+                gtag('event', 'print_onepage_clicked');
+            }
             window.open('print.html?mode=onepage&t=' + Date.now(), '_blank');
         });
 
