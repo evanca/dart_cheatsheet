@@ -1,6 +1,17 @@
 import 'dart:collection';
 import 'dart:math';
 
+class ListNode {
+  int val;
+  ListNode? next;
+  ListNode(this.val, [this.next]);
+}
+
+class Point {
+  final int x, y;
+  const Point(this.x, this.y);
+}
+
 void main() {
   testLists();
   testMaps();
@@ -13,6 +24,12 @@ void main() {
   testMatrix();
   testRecursion();
   testGraphs();
+  testQuickSort();
+  testBinarySearch();
+  testClasses();
+  testRecords();
+  testControlFlow();
+  testReverseList();
   print("All tests passed! The cheatsheet code is fully valid.");
 }
 
@@ -256,5 +273,97 @@ void testGraphs() {
   assert(dfsOrder.join(',') == '1,2,4,3');
 }
 
+List<int> quickSort(List<int> arr) {
+  if (arr.length <= 1) return arr;
+  var pivot = arr[arr.length ~/ 2];
+  var left = arr.where((x) => x < pivot).toList();
+  var middle = arr.where((x) => x == pivot).toList();
+  var right = arr.where((x) => x > pivot).toList();
+  return [...quickSort(left), ...middle, ...quickSort(right)];
+}
 
+void testQuickSort() {
+  assert(quickSort([3, 1, 4, 1, 5, 9, 2, 6, 5]).join(',') == '1,1,2,3,4,5,5,6,9');
+  assert(quickSort([]).isEmpty);
+  assert(quickSort([10]).join(',') == '10');
+  assert(quickSort([5, 4, 3, 2, 1]).join(',') == '1,2,3,4,5');
+}
 
+int binarySearch(List<int> sortedList, int target) {
+  int low = 0, high = sortedList.length - 1;
+  while (low <= high) {
+    int mid = low + (high - low) ~/ 2;
+    if (sortedList[mid] == target) return mid;
+    if (sortedList[mid] < target) low = mid + 1;
+    else high = mid - 1;
+  }
+  return -1;
+}
+
+void testBinarySearch() {
+  var list = [1, 3, 5, 7, 9];
+  assert(binarySearch(list, 5) == 2);
+  assert(binarySearch(list, 1) == 0);
+  assert(binarySearch(list, 9) == 4);
+  assert(binarySearch(list, 4) == -1);
+  assert(binarySearch([], 5) == -1);
+}
+
+void testClasses() {
+  var p = const Point(10, 20);
+  assert(p.x == 10 && p.y == 20);
+}
+
+void testRecords() {
+  var record = (1, 2, name: 'Dart');
+  assert(record.$1 == 1);
+  assert(record.name == 'Dart');
+  
+  var (a, b, name: n) = record;
+  assert(a == 1 && b == 2 && n == 'Dart');
+}
+
+ListNode? reverseList(ListNode? head) {
+  ListNode? prev;
+  ListNode? curr = head;
+  while (curr != null) {
+    ListNode? nextTemp = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = nextTemp;
+  }
+  return prev;
+}
+
+void testReverseList() {
+  var n3 = ListNode(3);
+  var n2 = ListNode(2, n3);
+  var n1 = ListNode(1, n2);
+  
+  var reversed = reverseList(n1);
+  assert(reversed?.val == 3);
+  assert(reversed?.next?.val == 2);
+  assert(reversed?.next?.next?.val == 1);
+  assert(reversed?.next?.next?.next == null);
+}
+
+void testControlFlow() {
+  var message = StringBuffer();
+  for (var i = 0; i < 5; i++) {
+    message.write('!');
+  }
+  assert(message.toString() == '!!!!!');
+
+  int count = 0;
+  for (var x in [1, 2, 3]) {
+    count += x;
+  }
+  assert(count == 6);
+
+  var val = 1;
+  var res = switch(val) {
+    1 => 'one',
+    _ => 'many'
+  };
+  assert(res == 'one');
+}

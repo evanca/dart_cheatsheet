@@ -73,6 +73,7 @@ list.indexOf(<span class="number">2</span>);      <span class="comment">// Find 
 
 <span class="comment">// Iteration (O(N))</span>
 <span class="keyword">for</span> (<span class="keyword">var</span> item <span class="keyword">in</span> list) { }
+<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; list.length; i++) { }
 list.forEach((item) => <span class="built_in">print</span>(item));
 </code></pre>
             </div>
@@ -203,7 +204,104 @@ arr.sort((a,b) => b.compareTo(a)); <span class="comment">// Descending</span>
 
 <span class="comment">// String manipulations</span>
 <span class="keyword">var</span> s = <span class="string">"hello"</span>;
-<span class="keyword">var</span> reversed = s.split(<span class="string">''</span>).reversed.join();</code></pre>
+<span class="keyword">var</span> reversed = s.split(<span class="string">''</span>).reversed.join();
+
+<span class="comment">// Efficient Building & Repeat N times</span>
+<span class="keyword">var</span> message = <span class="type">StringBuffer</span>();
+<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) {
+  message.write(<span class="string">'!'</span>);
+}</code></pre>
+            </div>
+        </section>
+        
+        <!-- Quicksort -->
+        <section class="card">
+            <h2>Quicksort (Divide & Conquer)</h2>
+            <p class="subtitle">Efficient, recursive sort. O(N log N) average.</p>
+            <div class="code-block">
+                <pre><code><span class="type">List</span>&lt;<span class="type">int</span>&gt; quickSort(<span class="type">List</span>&lt;<span class="type">int</span>&gt; arr) {
+  <span class="keyword">if</span> (arr.length &lt;= <span class="number">1</span>) <span class="keyword">return</span> arr;
+  
+  <span class="keyword">var</span> pivot = arr[arr.length ~/ <span class="number">2</span>];
+  <span class="keyword">var</span> left = arr.where((x) => x &lt; pivot).toList();
+  <span class="keyword">var</span> middle = arr.where((x) => x == pivot).toList();
+  <span class="keyword">var</span> right = arr.where((x) => x &gt; pivot).toList();
+  
+  <span class="keyword">return</span> [...quickSort(left), ...middle, ...quickSort(right)];
+}</code></pre>
+            </div>
+        </section>
+        
+        <!-- Binary Search -->
+        <section class="card">
+            <h2>Binary Search (Divide & Conquer)</h2>
+            <p class="subtitle">Efficiently find an element in a sorted list. O(log N).</p>
+            <div class="code-block">
+                <pre><code><span class="type">int</span> binarySearch(<span class="type">List</span>&lt;<span class="type">int</span>&gt; sortedList, <span class="type">int</span> target) {
+  <span class="keyword">int</span> low = <span class="number">0</span>, high = sortedList.length - <span class="number">1</span>;
+  
+  <span class="keyword">while</span> (low &lt;= high) {
+    <span class="keyword">int</span> mid = low + (high - low) ~/ <span class="number">2</span>;
+    <span class="keyword">if</span> (sortedList[mid] == target) <span class="keyword">return</span> mid;
+    <span class="keyword">if</span> (sortedList[mid] &lt; target) low = mid + <span class="number">1</span>;
+    <span class="keyword">else</span> high = mid - <span class="number">1</span>;
+  }
+  <span class="keyword">return</span> -<span class="number">1</span>; <span class="comment">// Not found</span>
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Class Creation -->
+        <section class="card">
+            <h2>Class Creation (Minimal)</h2>
+            <p class="subtitle">Shorthand constructor with final fields</p>
+            <div class="code-block">
+                <pre><code><span class="keyword">class</span> <span class="type">Point</span> {
+  <span class="keyword">final</span> <span class="type">int</span> x, y;
+  
+  <span class="comment">// Shorthand constructor</span>
+  <span class="keyword">const</span> <span class="type">Point</span>(<span class="keyword">this</span>.x, <span class="keyword">this</span>.y);
+}
+
+<span class="comment">// Instantiation</span>
+<span class="keyword">var</span> p = <span class="keyword">const</span> <span class="type">Point</span>(<span class="number">10</span>, <span class="number">20</span>);</code></pre>
+            </div>
+        </section>
+
+        <!-- Records -->
+        <section class="card">
+            <h2>Records (Dart 3+)</h2>
+            <p class="subtitle">Anonymous, immutable, structural types</p>
+            <div class="code-block">
+                <pre><code><span class="comment">// Positional & Named fields</span>
+<span class="keyword">var</span> record = (<span class="number">1</span>, <span class="number">2</span>, name: <span class="string">'Dart'</span>);
+
+<span class="comment">// Access by index ($1, $2...) or name</span>
+record.$<span class="number">1</span>;      <span class="comment">// 1</span>
+record.name;    <span class="comment">// 'Dart'</span>
+
+<span class="comment">// Destructuring / Unpacking</span>
+<span class="keyword">var</span> (a, b, name: n) = record;</code></pre>
+            </div>
+        </section>
+
+        <!-- Reverse Linked List -->
+        <section class="card">
+            <h2>Reverse Linked List</h2>
+            <p class="subtitle">Classic pointer manipulation (Iterative)</p>
+            <div class="code-block">
+                <pre><code><span class="type">ListNode</span>? reverseList(<span class="type">ListNode</span>? head) {
+  <span class="type">ListNode</span>? prev;
+  <span class="type">ListNode</span>? curr = head;
+  
+  <span class="keyword">while</span> (curr != <span class="keyword">null</span>) {
+    <span class="type">ListNode</span>? nextTemp = curr.next;
+    curr.next = prev; <span class="comment">// Reverse link</span>
+    prev = curr;
+    curr = nextTemp;
+  }
+  <span class="keyword">return</span> prev; <span class="comment">// New head</span>
+}</code></pre>
             </div>
         </section>
 
