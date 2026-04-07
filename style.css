@@ -107,6 +107,44 @@ header p {
     box-shadow: 0 2px 4px rgba(1, 117, 194, 0.2);
 }
 
+.print-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.print-btn:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #fff;
+}
+
+.print-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.print-btn:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #fff;
+}
+
 /* 
  * Multi-column grid optimized for packing. 
  * Allows blocks to automatically waterfall densely.
@@ -289,4 +327,6 @@ header p {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
+
+    /* Main print adjustments are done inside print.html explicitly now */
 }

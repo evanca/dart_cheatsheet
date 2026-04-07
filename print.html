@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Preview - Dart Cheatsheet</title>
+    <!-- Screen styles only to prevent @media print interference -->
+    <link rel="stylesheet" href="style.css" media="screen">
+    <style>
+        /* ========================================================
+           BASE PRINT UI (Applies to both modes) 
+           ======================================================== */
+        @page { size: landscape; margin: 5mm; }
+
+        body {
+            background: white;
+            margin: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            color: #000;
+        }
+
+        /* Syntax highlighting */
+        .keyword { color: #7e22ce; font-weight: bold; }
+        .type { color: #0369a1; font-weight: bold; }
+        .string { color: #15803d; font-weight: bold; }
+        .number { color: #c2410c; font-weight: bold; }
+        .comment { color: #64748b; }
+        .built_in { color: #a21caf; font-weight: bold; }
+
+        .card {
+            break-inside: avoid;
+            min-width: 0;
+            border: 0.5px solid #e2e8f0;
+            background: #fff;
+            transform: none;
+            box-shadow: none;
+        }
+        .card h2 { font-weight: bold; margin: 0 0 1mm 0; padding: 0; }
+        .card h2::before { display: none; }
+        
+        .subtitle { color: #64748b; }
+        .subtitle code {
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0 1px;
+            border: 0.5px solid #e2e8f0;
+            border-radius: 2px;
+            background: #f8fafc;
+        }
+
+        .code-block {
+            border: none;
+            background: transparent;
+            min-width: 0;
+        }
+        .code-block pre {
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: -0.1px;
+            white-space: pre;
+            min-width: 0;
+            margin: 0;
+        }
+
+        /* Hide interactive non-print elements */
+        .print-btn, #theme-toggle { display: none; }
+        .header-meta { display: none; }
+
+        /* ========================================================
+           MODE: COMPACT (8 column flat grid, hidden header, extremely tight)
+           ======================================================== */
+        body.mode-compact { padding: 0; }
+        body.mode-compact header, body.mode-compact footer { display: none; }
+
+        body.mode-compact .grid-container {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 1mm;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            align-items: start;
+        }
+
+        body.mode-compact .card {
+            padding: 2px;
+            margin-bottom: 0;
+            font-size: 4pt;
+            border-radius: 0;
+        }
+        body.mode-compact .card h2 { font-size: 4.5pt; }
+        body.mode-compact .subtitle { font-size: 3.5pt; margin-bottom: 1px; }
+        body.mode-compact .subtitle code { font-size: 3.5pt; }
+        body.mode-compact .code-block { padding: 2px; }
+        body.mode-compact .code-block pre {
+            font-size: 4pt;
+            line-height: 1.1;
+            letter-spacing: -0.2px;
+        }
+
+        /* ========================================================
+           MODE: ONE PAGE (5 columns, visible compact header, auto-scaled to fit)
+           ======================================================== */
+        body.mode-onepage { padding: 2mm; }
+        
+        body.mode-onepage header {
+            text-align: center;
+            margin-bottom: 2mm;
+            padding-bottom: 1mm;
+            border-bottom: 0.5px solid #cbd5e1;
+        }
+        body.mode-onepage header h1 {
+            font-size: 8.5pt;
+            margin: 0 0 1mm 0;
+            color: #0175c2;
+        }
+        body.mode-onepage header p {
+            font-size: 5.5pt;
+            margin: 0;
+            color: #64748b;
+        }
+        body.mode-onepage footer { display: none; }
+
+        body.mode-onepage .grid-container {
+            column-count: 5;
+            column-gap: 3mm;
+            width: 100%;
+        }
+
+        body.mode-onepage .card {
+            padding: 1.2mm;
+            margin-bottom: 1.5mm;
+            font-size: 5pt;
+            border-radius: 2px;
+        }
+        body.mode-onepage .card h2 { font-size: 6pt; color: #0175c2; }
+        body.mode-onepage .subtitle { font-size: 4.5pt; margin-bottom: 1mm; }
+        body.mode-onepage .subtitle code { font-size: 4.5pt; }
+        
+        body.mode-onepage .code-block {
+            padding: 1mm;
+            background: #f8fafc;
+            border-radius: 2px;
+        }
+        body.mode-onepage .code-block pre {
+            font-size: 4.5pt;
+            line-height: 1.15;
+        }
+    </style>
+</head>
+<body>
+    <header id="header-target"></header>
+    <main id="content-target" class="grid-container"></main>
+    
+    <script>
+        // Extract URL parameter for print mode
+        const urlParams = new URLSearchParams(window.location.search);
+        const mode = urlParams.get('mode') || 'onepage';
+        document.body.classList.add(`mode-${mode}`);
+
+        // Fetch core content
+        fetch('index.html')
+            .then(r => r.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                // Copy header (only displayed via CSS if in one-page mode)
+                const headerContent = doc.querySelector('.header-content');
+                if (headerContent) {
+                    document.getElementById('header-target').innerHTML = headerContent.innerHTML;
+                }
+
+                // Copy main structural HTML
+                const main = doc.querySelector('main');
+                document.getElementById('content-target').innerHTML = main.innerHTML;
+
+                // Let layout settle
+                setTimeout(() => {
+                    // Only run dynamic vertical scale-to-fit logic for onepage mode
+                    if (mode === 'onepage') {
+                        const ruler = document.createElement('div');
+                        ruler.style.height = '180mm'; // Safe vertical A4 zone
+                        ruler.style.position = 'absolute';
+                        ruler.style.visibility = 'hidden';
+                        document.body.appendChild(ruler);
+                        
+                        const safeHeightPx = ruler.offsetHeight;
+                        const contentHeightPx = document.getElementById('content-target').offsetHeight;
+                        
+                        if (contentHeightPx > safeHeightPx) {
+                            const scaleRatio = safeHeightPx / contentHeightPx;
+                            document.body.style.zoom = scaleRatio * 0.98; 
+                        }
+                        ruler.remove();
+                    }
+
+                    setTimeout(() => window.print(), 200);
+                }, 300);
+            });
+    </script>
+</body>
+</html>
