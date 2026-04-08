@@ -57,6 +57,9 @@ void testLists() {
   var index = list.indexOf(2);
   assert(index == 1);
 
+  assert(list.contains(2) == true);
+  assert(list.contains(99) == false);
+
   var combined = [...list, 4, 5];
   assert(combined.length == 5);
 
