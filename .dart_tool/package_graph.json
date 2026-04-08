@@ -1,0 +1,21 @@
+{
+  "roots": [
+    "dart_cheatsheet"
+  ],
+  "packages": [
+    {
+      "name": "dart_cheatsheet",
+      "version": "0.0.0",
+      "dependencies": [
+        "collection"
+      ],
+      "devDependencies": []
+    },
+    {
+      "name": "collection",
+      "version": "1.19.1",
+      "dependencies": []
+    }
+  ],
+  "configVersion": 1
+}
