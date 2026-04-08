@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:math';
+import 'package:collection/collection.dart';
 
 class ListNode {
   int val;
@@ -18,6 +19,7 @@ void main() {
   testSets();
   testStacks();
   testQueues();
+  testHeaps();
   testTrees();
   testAlgos();
   testMath();
@@ -140,6 +142,18 @@ void testQueues() {
 
   assert(queue.first == 0);
   assert(queue.last == 0);
+}
+
+void testHeaps() {
+  var minHeap = PriorityQueue<int>();
+  minHeap.add(5);
+  minHeap.add(1);
+  assert(minHeap.first == 1);
+  assert(minHeap.removeFirst() == 1);
+
+  var maxQ = PriorityQueue<int>();
+  maxQ.addAll([-3, -8, -2]);
+  assert(-maxQ.removeFirst() == 8);
 }
 
 void testTrees() {

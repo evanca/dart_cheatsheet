@@ -166,6 +166,27 @@ queue.first;          <span class="comment">// Peek front</span>
 queue.last;           <span class="comment">// Peek back</span></code></pre>
             </div>
         </section>
+
+        <!-- Heaps / Priority Queue -->
+        <section class="card">
+            <h2>Priority Queue (Heaps)</h2>
+            <p class="subtitle">Uses <code>package:collection</code>. O(log N) inserts/removals.</p>
+            <div class="code-block">
+                <pre><code><span class="keyword">import</span> <span class="string">'package:collection/collection.dart'</span>;
+
+<span class="comment">// Min-Heap (Default)</span>
+<span class="keyword">var</span> minHeap = <span class="type">PriorityQueue</span>&lt;<span class="type">int</span>&gt;();
+minHeap.add(<span class="number">5</span>);
+minHeap.add(<span class="number">1</span>);
+<span class="built_in">print</span>(minHeap.first);       <span class="comment">// 1 (Peek)</span>
+<span class="built_in">print</span>(minHeap.removeFirst()); <span class="comment">// 1 (Pop)</span>
+
+<span class="comment">// Max-Heap (via -1 Hack for numericals)</span>
+<span class="keyword">var</span> maxQ = <span class="type">PriorityQueue</span>&lt;<span class="type">int</span>&gt;();
+maxQ.addAll([-<span class="number">3</span>, -<span class="number">8</span>, -<span class="number">2</span>]);
+<span class="built_in">print</span>(-maxQ.removeFirst()); <span class="comment">// 8</span></code></pre>
+            </div>
+        </section>
         
         <!-- Trees / Sorted -->
         <section class="card">
