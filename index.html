@@ -92,7 +92,7 @@ list.forEach((item) => <span class="built_in">print</span>(item));
 <span class="comment">// O(1) Avg Operations</span>
 map[<span class="string">'b'</span>] = <span class="number">2</span>;         <span class="comment">// Insert or Update</span>
 map.remove(<span class="string">'a'</span>);      <span class="comment">// Delete</span>
-map.containsKey(<span class="string">'b'</span>); <span class="comment">// Quick check</span>
+map.containsKey(<span class="string">'b'</span>); <span class="comment">// O(1) Lookup</span>
 
 <span class="comment">// Advanced Insertion</span>
 map.putIfAbsent(<span class="string">'c'</span>, () => <span class="number">3</span>);
@@ -114,7 +114,7 @@ map.update(<span class="string">'b'</span>, (v) => v + <span class="number">1</s
 <span class="comment">// O(1) Avg Operations</span>
 set.add(<span class="number">4</span>);
 set.remove(<span class="number">2</span>);
-set.contains(<span class="number">3</span>);      <span class="comment">// Extremely fast lookup</span>
+set.contains(<span class="number">3</span>);      <span class="comment">// O(1) Lookup</span>
 
 <span class="comment">// O(N) Set Mathematics</span>
 <span class="keyword">var</span> a = {<span class="number">1</span>, <span class="number">2</span>}, b = {<span class="number">2</span>, <span class="number">3</span>};
@@ -179,8 +179,8 @@ queue.last;           <span class="comment">// Peek back</span></code></pre>
 <span class="keyword">var</span> minHeap = <span class="type">PriorityQueue</span>&lt;<span class="type">int</span>&gt;();
 minHeap.add(<span class="number">5</span>);
 minHeap.add(<span class="number">1</span>);
-<span class="built_in">print</span>(minHeap.first);       <span class="comment">// 1 (Peek)</span>
-<span class="built_in">print</span>(minHeap.removeFirst()); <span class="comment">// 1 (Pop)</span>
+<span class="built_in">print</span>(minHeap.first);       <span class="comment">// O(1) Peek</span>
+<span class="built_in">print</span>(minHeap.removeFirst()); <span class="comment">// O(log N) Pop</span>
 
 <span class="comment">// Max-Heap (via -1 Hack for numericals)</span>
 <span class="keyword">var</span> maxQ = <span class="type">PriorityQueue</span>&lt;<span class="type">int</span>&gt;();
@@ -200,12 +200,12 @@ maxQ.addAll([-<span class="number">3</span>, -<span class="number">8</span>, -<s
 <span class="keyword">var</span> treeMap = <span class="type">SplayTreeMap</span>&lt;<span class="type">int</span>, <span class="type">String</span>&gt;();
 treeMap[<span class="number">3</span>] = <span class="string">'C'</span>;
 treeMap[<span class="number">1</span>] = <span class="string">'A'</span>;
-<span class="built_in">print</span>(treeMap.firstKey()); <span class="comment">// Iterates pre-sorted: 1</span>
+<span class="built_in">print</span>(treeMap.firstKey()); <span class="comment">// Minimum (O(log N))</span>
 
 <span class="comment">// Sorted Set (SplayTreeSet) - O(log N)</span>
 <span class="keyword">var</span> treeSet = <span class="type">SplayTreeSet</span>&lt;<span class="type">int</span>&gt;();
 treeSet.addAll([<span class="number">5</span>, <span class="number">1</span>, <span class="number">8</span>]);
-<span class="built_in">print</span>(treeSet.first); <span class="comment">// Returns 1 optimally</span></code></pre>
+<span class="built_in">print</span>(treeSet.first); <span class="comment">// Minimum (O(log N))</span></code></pre>
             </div>
         </section>
 
@@ -223,15 +223,15 @@ arr.sort((a,b) => b.compareTo(a)); <span class="comment">// Descending</span>
 <span class="keyword">var</span> mapped = arr.map((x) => x * <span class="number">2</span>);
 <span class="keyword">var</span> sum = arr.reduce((a, b) => a + b);
 
-<span class="comment">// Maximum value</span>
+<span class="comment">// Maximum value (O(N))</span>
 <span class="keyword">import</span> <span class="string">'dart:math'</span>;
 <span class="keyword">var</span> maxVal = arr.reduce(max);
 
-<span class="comment">// String manipulations</span>
+<span class="comment">// String manipulations (O(N))</span>
 <span class="keyword">var</span> s = <span class="string">"hello"</span>;
 <span class="keyword">var</span> reversed = s.split(<span class="string">''</span>).reversed.join();
 
-<span class="comment">// Efficient Building & Repeat N times</span>
+<span class="comment">// StringBuffer (O(N))</span>
 <span class="keyword">var</span> message = <span class="type">StringBuffer</span>();
 <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) {
   message.write(<span class="string">'!'</span>);
@@ -242,7 +242,7 @@ arr.sort((a,b) => b.compareTo(a)); <span class="comment">// Descending</span>
         <!-- Quicksort -->
         <section class="card">
             <h2>Quicksort (Divide & Conquer)</h2>
-            <p class="subtitle">Efficient, recursive sort. O(N log N) average.</p>
+            <p class="subtitle">Recursive sort. O(N log N) avg, O(N²) worst.</p>
             <div class="code-block">
                 <pre><code><span class="type">List</span>&lt;<span class="type">int</span>&gt; quickSort(<span class="type">List</span>&lt;<span class="type">int</span>&gt; arr) {
   <span class="keyword">if</span> (arr.length &lt;= <span class="number">1</span>) <span class="keyword">return</span> arr;
@@ -260,7 +260,7 @@ arr.sort((a,b) => b.compareTo(a)); <span class="comment">// Descending</span>
         <!-- Binary Search -->
         <section class="card">
             <h2>Binary Search (Divide & Conquer)</h2>
-            <p class="subtitle">Efficiently find an element in a sorted list. O(log N).</p>
+            <p class="subtitle">Search sorted list. O(log N).</p>
             <div class="code-block">
                 <pre><code><span class="type">int</span> binarySearch(<span class="type">List</span>&lt;<span class="type">int</span>&gt; sortedList, <span class="type">int</span> target) {
   <span class="keyword">int</span> low = <span class="number">0</span>, high = sortedList.length - <span class="number">1</span>;
