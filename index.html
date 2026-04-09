@@ -218,6 +218,10 @@ treeSet.addAll([<span class="number">5</span>, <span class="number">1</span>, <s
 arr.sort((a,b) => a.compareTo(b)); <span class="comment">// Ascending</span>
 arr.sort((a,b) => b.compareTo(a)); <span class="comment">// Descending</span>
 
+<span class="comment">// Sort intervals by start value</span>
+<span class="keyword">var</span> intervals = [[<span class="number">1</span>,<span class="number">3</span>],[<span class="number">2</span>,<span class="number">6</span>],[<span class="number">8</span>,<span class="number">10</span>],[<span class="number">15</span>,<span class="number">18</span>]];
+intervals.sort((a,b) => a[<span class="number">0</span>].compareTo(b[<span class="number">0</span>]));
+
 <span class="comment">// Functional Iterators (Lazy Evaluated)</span>
 <span class="keyword">var</span> evens = arr.where((x) => x.isEven);
 <span class="keyword">var</span> mapped = arr.map((x) => x * <span class="number">2</span>);

@@ -176,6 +176,10 @@ void testAlgos() {
   arr.sort((a,b) => b.compareTo(a)); 
   assert(arr[0] == 5 && arr[2] == 1);
 
+  var intervals = [[8, 10], [1, 3], [15, 18], [2, 6]];
+  intervals.sort((a, b) => a[0].compareTo(b[0]));
+  assert(intervals.map((e) => e.join(',')).join(';') == '1,3;2,6;8,10;15,18');
+
   var evens = arr.where((x) => x.isEven);
   assert(evens.isEmpty == true); 
   
