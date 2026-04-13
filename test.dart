@@ -191,7 +191,8 @@ void testAlgos() {
   assert(sum == 9);
 
   var maxVal = arr.reduce(max);
-  assert(maxVal == 5);
+  var minVal = arr.reduce(min);
+  assert(maxVal == 5 && minVal == 1);
 
   var s = "hello";
   var reversed = s.split('').reversed.join();

@@ -227,9 +227,10 @@ intervals.sort((a,b) => a[<span class="number">0</span>].compareTo(b[<span class
 <span class="keyword">var</span> mapped = arr.map((x) => x * <span class="number">2</span>);
 <span class="keyword">var</span> sum = arr.reduce((a, b) => a + b);
 
-<span class="comment">// Maximum value (O(N))</span>
+<span class="comment">// Min & Max value (O(N))</span>
 <span class="keyword">import</span> <span class="string">'dart:math'</span>;
 <span class="keyword">var</span> maxVal = arr.reduce(max);
+<span class="keyword">var</span> minVal = arr.reduce(min);
 
 <span class="comment">// String manipulations (O(N))</span>
 <span class="keyword">var</span> s = <span class="string">"hello"</span>;
