@@ -195,6 +195,11 @@ void testAlgos() {
   assert(maxVal == 5 && minVal == 1);
 
   var s = "hello";
+  var chars = <String>[];
+  for (var char in s.split('')) {
+    chars.add(char);
+  }
+  assert(chars.join() == "hello");
   var reversed = s.split('').reversed.join();
   assert(reversed == "olleh");
 }
