@@ -383,7 +383,10 @@ record.name;    <span class="comment">// 'Dart'</span>
         <section class="card">
             <h2>Matrices (2D Grids)</h2>
             <div class="code-block">
-                <pre><code><span class="keyword">var</span> grid = [
+                <pre><code><span class="comment">// Init N x M matrix with 0s (e.g. 3x4)</span>
+<span class="keyword">var</span> zeros = <span class="type">List</span>.generate(<span class="number">3</span>, (_) => <span class="type">List</span>.filled(<span class="number">4</span>, <span class="number">0</span>));
+
+<span class="keyword">var</span> grid = [
   [<span class="number">1</span>, <span class="number">2</span>],
   [<span class="number">3</span>, <span class="number">4</span>]
 ];

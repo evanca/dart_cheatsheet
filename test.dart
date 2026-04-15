@@ -225,6 +225,9 @@ void testMath() {
 }
 
 void testMatrix() {
+  var zeros = List.generate(3, (_) => List.filled(4, 0));
+  assert(zeros.length == 3 && zeros[0].length == 4 && zeros[0][0] == 0);
+
   var grid = [
     [1, 2],
     [3, 4]
