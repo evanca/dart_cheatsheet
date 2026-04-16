@@ -394,9 +394,14 @@ record.name;    <span class="comment">// 'Dart'</span>
 <span class="comment">// Flattening a 2D array</span>
 <span class="keyword">var</span> flat = grid.expand((i) => i).toList();
 
-<span class="comment">// 2D Iteration</span>
+<span class="comment">// 2D Iteration (Forward & Reverse)</span>
 <span class="keyword">for</span> (<span class="keyword">var</span> r = <span class="number">0</span>; r &lt; grid.length; r++) {
   <span class="keyword">for</span> (<span class="keyword">var</span> c = <span class="number">0</span>; c &lt; grid[r].length; c++) {
+    <span class="keyword">var</span> val = grid[r][c];
+  }
+}
+<span class="keyword">for</span> (<span class="keyword">var</span> r = grid.length - <span class="number">1</span>; r &gt;= <span class="number">0</span>; r--) {
+  <span class="keyword">for</span> (<span class="keyword">var</span> c = grid[r].length - <span class="number">1</span>; c &gt;= <span class="number">0</span>; c--) {
     <span class="keyword">var</span> val = grid[r][c];
   }
 }

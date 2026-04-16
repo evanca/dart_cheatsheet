@@ -250,6 +250,17 @@ void testMatrix() {
   }
   assert(sum == 10);
 
+  var revSum = 0;
+  var order = <int>[];
+  for (var r = grid.length - 1; r >= 0; r--) {
+    for (var c = grid[r].length - 1; c >= 0; c--) {
+      revSum += grid[r][c];
+      order.add(grid[r][c]);
+    }
+  }
+  assert(revSum == 10);
+  assert(order.join(',') == '4,3,2,1');
+
   var r = 0, c = 0;
   var dirs = [[0,1], [1,0], [0,-1], [-1,0]];
   for (var d in dirs) {
