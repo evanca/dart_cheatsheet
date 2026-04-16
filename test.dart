@@ -71,6 +71,12 @@ void testLists() {
   }
   assert(iterationCount == list.length);
 
+  int reverseCount = 0;
+  for (var i = list.length - 1; i >= 0; i--) {
+    reverseCount += list[i];
+  }
+  assert(reverseCount == 6); // 1+2+3
+
   list.forEach((item) {
     // print(item);
   });
