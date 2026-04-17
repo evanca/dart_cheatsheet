@@ -265,12 +265,22 @@ void testMatrix() {
   assert(order.join(',') == '4,3,2,1');
 
   var r = 0, c = 0;
-  var dirs = [[0,1], [1,0], [0,-1], [-1,0]];
+  var dirs = [[0, 1], [1, 0], [0, -1], [-1, 0]];
   for (var d in dirs) {
     var nr = r + d[0], nc = c + d[1];
-    // testing logical assignment mapping logic
     assert(nr == r + d[0] && nc == c + d[1]);
   }
+
+  // Recursive Grid DFS Test
+  var vis = <(int, int)>{};
+  int R = grid.length, C = grid[0].length;
+  void dfs(int r, int c) {
+    if (r < 0 || r >= R || c < 0 || c >= C || !vis.add((r, c))) return;
+    for (var d in dirs) dfs(r + d[0], c + d[1]);
+  }
+  
+  dfs(0, 0);
+  assert(vis.length == 4); // All cells in 2x2 grid visited
 }
 
 var memo = <int, int>{};

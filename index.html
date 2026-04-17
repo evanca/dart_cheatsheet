@@ -413,6 +413,13 @@ record.name;    <span class="comment">// 'Dart'</span>
 <span class="keyword">var</span> dirs = [[<span class="number">0</span>,<span class="number">1</span>], [<span class="number">1</span>,<span class="number">0</span>], [<span class="number">0</span>,-<span class="number">1</span>], [-<span class="number">1</span>,<span class="number">0</span>]];
 <span class="keyword">for</span> (<span class="keyword">var</span> d <span class="keyword">in</span> dirs) {
   <span class="keyword">var</span> nr = r + d[<span class="number">0</span>], nc = c + d[<span class="number">1</span>];
+}
+
+<span class="comment">// Recursive Grid DFS</span>
+<span class="keyword">var</span> vis = &lt;(<span class="type">int</span>, <span class="type">int</span>)&gt;{};
+<span class="keyword">void</span> dfs(<span class="type">int</span> r, <span class="type">int</span> c) {
+  <span class="keyword">if</span> (r &lt; <span class="number">0</span> || r &gt;= R || c &lt; <span class="number">0</span> || c &gt;= C || !vis.add((r, c))) <span class="keyword">return</span>;
+  <span class="keyword">for</span> (<span class="keyword">var</span> d <span class="keyword">in</span> dirs) dfs(r + d[<span class="number">0</span>], c + d[<span class="number">1</span>]);
 }</code></pre>
             </div>
         </section>
