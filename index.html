@@ -99,6 +99,9 @@ map.containsKey(<span class="string">'b'</span>); <span class="comment">// O(1) 
 map.putIfAbsent(<span class="string">'c'</span>, () => <span class="number">3</span>);
 map.update(<span class="string">'b'</span>, (v) => v + <span class="number">1</span>, ifAbsent: () => <span class="number">1</span>);
 
+<span class="comment">// Graph Adj List Init (Dart 3)</span>
+<span class="keyword">var</span> adj = { <span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) i: [] };
+
 <span class="comment">// Iteration (O(N))</span>
 <span class="keyword">for</span> (<span class="keyword">var</span> entry <span class="keyword">in</span> map.entries) {
   <span class="built_in">print</span>(<span class="string">'\${entry.key}: \${entry.value}'</span>);

@@ -96,6 +96,9 @@ void testMaps() {
   map.update('b', (v) => v + 1, ifAbsent: () => 1);
   assert(map['b'] == 3);
 
+  var adj = { for (var i in [1, 2, 3]) i: <int>[] };
+  assert(adj.length == 3 && adj[1]!.isEmpty);
+
   for (var entry in map.entries) {
     // print('${entry.key}: ${entry.value}');
   }
