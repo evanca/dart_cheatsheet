@@ -105,6 +105,9 @@ void testMaps() {
 }
 
 void testSets() {
+  var unique = [1, 2, 2, 3].toSet();
+  assert(unique.length == 3 && unique.contains(2));
+
   var set = <int>{1, 2, 3};
 
   set.add(4);

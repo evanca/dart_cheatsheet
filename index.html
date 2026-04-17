@@ -114,6 +114,8 @@ map.update(<span class="string">'b'</span>, (v) => v + <span class="number">1</s
             <h2>Sets (Hash Sets)</h2>
             <div class="code-block">
                 <pre><code><span class="keyword">var</span> set = &lt;<span class="type">int</span>&gt;{<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>};
+<span class="comment">// List to Set (Removes duplicates)</span>
+<span class="keyword">var</span> unique = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>].toSet(); <span class="comment">// {1, 2, 3}</span>
 
 <span class="comment">// O(1) Avg Operations</span>
 set.add(<span class="number">4</span>);
