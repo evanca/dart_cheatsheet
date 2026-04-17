@@ -420,6 +420,21 @@ record.name;    <span class="comment">// 'Dart'</span>
 <span class="keyword">void</span> dfs(<span class="type">int</span> r, <span class="type">int</span> c) {
   <span class="keyword">if</span> (r &lt; <span class="number">0</span> || r &gt;= R || c &lt; <span class="number">0</span> || c &gt;= C || !vis.add((r, c))) <span class="keyword">return</span>;
   <span class="keyword">for</span> (<span class="keyword">var</span> d <span class="keyword">in</span> dirs) dfs(r + d[<span class="number">0</span>], c + d[<span class="number">1</span>]);
+}
+
+<span class="comment">// Iterative Grid BFS (Queue)</span>
+<span class="keyword">void</span> bfs(<span class="type">int</span> startR, <span class="type">int</span> startC) {
+  <span class="keyword">var</span> q = <span class="type">Queue</span>&lt;(<span class="type">int</span>, <span class="type">int</span>)&gt;()..add((startR, startC));
+  <span class="keyword">var</span> vis = { (startR, startC) };
+  <span class="keyword">while</span> (q.isNotEmpty) {
+    <span class="keyword">var</span> (r, c) = q.removeFirst();
+    <span class="keyword">for</span> (<span class="keyword">var</span> d <span class="keyword">in</span> dirs) {
+      <span class="keyword">var</span> nr = r + d[<span class="number">0</span>], nc = c + d[<span class="number">1</span>];
+      <span class="keyword">if</span> (nr &gt;= <span class="number">0</span> && nr &lt; R && nc &gt;= <span class="number">0</span> && nc &lt; C && vis.add((nr, nc))) {
+        q.add((nr, nc));
+      }
+    }
+  }
 }</code></pre>
             </div>
         </section>

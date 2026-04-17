@@ -280,7 +280,24 @@ void testMatrix() {
   }
   
   dfs(0, 0);
-  assert(vis.length == 4); // All cells in 2x2 grid visited
+  assert(vis.length == 4); // All cells visited
+
+  // Iterative Grid BFS Test
+  Set<(int, int)> bfs(int startR, int startC) {
+    var q = Queue<(int, int)>()..add((startR, startC));
+    var vis = {(startR, startC)};
+    while (q.isNotEmpty) {
+      var (r, c) = q.removeFirst();
+      for (var d in dirs) {
+        var nr = r + d[0], nc = c + d[1];
+        if (nr >= 0 && nr < R && nc >= 0 && nc < C && vis.add((nr, nc))) {
+          q.add((nr, nc));
+        }
+      }
+    }
+    return vis;
+  }
+  assert(bfs(0, 0).length == 4); // All cells visited
 }
 
 var memo = <int, int>{};
