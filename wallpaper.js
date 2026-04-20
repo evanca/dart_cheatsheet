@@ -78,13 +78,16 @@
       areas[a] = d;
     });
 
-    const cards = Array.from(document.querySelectorAll('.grid-container .card'));
+    // Sort cards by rendered height: shortest → top row, tallest → side columns
+    const cards = Array.from(document.querySelectorAll('.grid-container .card'))
+      .sort((a, b) => a.offsetHeight - b.offsetHeight);
 
-    // Top: 5 cards. Left: 6 cards. Right: 6 cards. (17 total)
-    const leftCount = Math.ceil((cards.length - TOP_COUNT) / 2);
+    const sideCards = cards.slice(TOP_COUNT); // tallest for sides
+    const leftCount = Math.ceil(sideCards.length / 2);
+
     cards.slice(0, TOP_COUNT).forEach(c => areas.top.appendChild(c.cloneNode(true)));
-    cards.slice(TOP_COUNT, TOP_COUNT + leftCount).forEach(c => areas.left.appendChild(c.cloneNode(true)));
-    cards.slice(TOP_COUNT + leftCount).forEach(c => areas.right.appendChild(c.cloneNode(true)));
+    sideCards.slice(0, leftCount).forEach(c => areas.left.appendChild(c.cloneNode(true)));
+    sideCards.slice(leftCount).forEach(c => areas.right.appendChild(c.cloneNode(true)));
 
     return root;
   }

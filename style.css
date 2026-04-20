@@ -228,6 +228,18 @@ header p {
 .comment { color: var(--comment); font-style: italic; }
 .built_in { color: var(--built-in); }
 
+/* Call-site highlights */
+.call-parens {
+    background-color: rgba(202, 138, 4, 0.18);
+    border-radius: 3px;
+    padding: 0 2px;
+    outline: 1px solid rgba(202, 138, 4, 0.35);
+}
+.prop-access {
+    font-weight: 700;
+    font-style: normal;
+}
+
 /* Responsive Design */
 @media screen and (max-width: 1024px) {
     .grid-container {
