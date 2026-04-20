@@ -10,7 +10,7 @@
     <meta property="og:description" content="A comprehensive cheatsheet for Dart data structures algorithms and Flutter collections.">
     <meta property="og:type" content="website">
     <title>Dart & Flutter Data Structures and Algorithms Cheatsheet</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=4">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -109,6 +109,135 @@ map.update(<span class="string">'b'</span>, (v) => v + <span class="number">1</s
             </div>
         </section>
 
+        <!-- Matrices -->
+        <section class="card">
+            <h2>Matrices (2D Grids)</h2>
+            <div class="code-block">
+                <pre><code><span class="comment">// Init N x M matrix with 0s (e.g. 3x4)</span>
+<span class="keyword">var</span> zeros = <span class="type">List</span>.generate(<span class="number">3</span>, (_) => <span class="type">List</span>.filled(<span class="number">4</span>, <span class="number">0</span>));
+
+<span class="keyword">var</span> grid = [
+  [<span class="number">1</span>, <span class="number">2</span>],
+  [<span class="number">3</span>, <span class="number">4</span>]
+];
+<span class="comment">// Flattening a 2D array</span>
+<span class="keyword">var</span> flat = grid.expand((i) => i).toList();
+
+<span class="comment">// 2D Iteration (Forward & Reverse)</span>
+<span class="keyword">for</span> (<span class="keyword">var</span> r = <span class="number">0</span>; r &lt; grid.length; r++) {
+  <span class="keyword">for</span> (<span class="keyword">var</span> c = <span class="number">0</span>; c &lt; grid[r].length; c++) {
+    <span class="keyword">var</span> val = grid[r][c];
+  }
+}
+<span class="keyword">for</span> (<span class="keyword">var</span> r = grid.length - <span class="number">1</span>; r &gt;= <span class="number">0</span>; r--) {
+  <span class="keyword">for</span> (<span class="keyword">var</span> c = grid[r].length - <span class="number">1</span>; c &gt;= <span class="number">0</span>; c--) {
+    <span class="keyword">var</span> val = grid[r][c];
+  }
+}
+
+<span class="comment">// 4-Directional Traversal</span>
+<span class="keyword">var</span> dirs = [[<span class="number">0</span>,<span class="number">1</span>], [<span class="number">1</span>,<span class="number">0</span>], [<span class="number">0</span>,-<span class="number">1</span>], [-<span class="number">1</span>,<span class="number">0</span>]];
+<span class="keyword">for</span> (<span class="keyword">var</span> d <span class="keyword">in</span> dirs) {
+  <span class="keyword">var</span> nr = r + d[<span class="number">0</span>], nc = c + d[<span class="number">1</span>];
+}
+
+<span class="comment">// Recursive Grid DFS</span>
+<span class="keyword">var</span> vis = &lt;(<span class="type">int</span>, <span class="type">int</span>)&gt;{};
+<span class="keyword">void</span> dfs(<span class="type">int</span> r, <span class="type">int</span> c) {
+  <span class="keyword">if</span> (r &lt; <span class="number">0</span> || r &gt;= R || c &lt; <span class="number">0</span> || c &gt;= C || !vis.add((r, c))) <span class="keyword">return</span>;
+  <span class="keyword">for</span> (<span class="keyword">var</span> d <span class="keyword">in</span> dirs) dfs(r + d[<span class="number">0</span>], c + d[<span class="number">1</span>]);
+}
+
+<span class="comment">// Iterative Grid BFS (Queue)</span>
+<span class="keyword">void</span> bfs(<span class="type">int</span> startR, <span class="type">int</span> startC) {
+  <span class="keyword">var</span> q = <span class="type">Queue</span>&lt;(<span class="type">int</span>, <span class="type">int</span>)&gt;()..add((startR, startC));
+  <span class="keyword">var</span> vis = { (startR, startC) };
+  <span class="keyword">while</span> (q.isNotEmpty) {
+    <span class="keyword">var</span> (r, c) = q.removeFirst();
+    <span class="keyword">for</span> (<span class="keyword">var</span> d <span class="keyword">in</span> dirs) {
+      <span class="keyword">var</span> nr = r + d[<span class="number">0</span>], nc = c + d[<span class="number">1</span>];
+      <span class="keyword">if</span> (nr &gt;= <span class="number">0</span> && nr &lt; R && nc &gt;= <span class="number">0</span> && nc &lt; C && vis.add((nr, nc))) {
+        q.add((nr, nc));
+      }
+    }
+  }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Recursion -->
+        <section class="card">
+            <h2>Recursion & Memoization</h2>
+            <div class="code-block">
+                <pre><code><span class="keyword">var</span> memo = &lt;<span class="type">int</span>, <span class="type">int</span>&gt;{};
+
+<span class="type">int</span> fib(<span class="type">int</span> n) {
+  <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> n;
+  <span class="keyword">if</span> (memo.containsKey(n)) <span class="keyword">return</span> memo[n]!;
+  <span class="keyword">return</span> memo[n] = fib(n - <span class="number">1</span>) + fib(n - <span class="number">2</span>);
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Sorting & Algos -->
+        <section class="card">
+            <h2>Common Algorithms</h2>
+            <div class="code-block">
+                <pre><code><span class="comment">// In-place Sorting (O(N log N))</span>
+<span class="keyword">var</span> arr = [<span class="number">3</span>, <span class="number">1</span>, <span class="number">5</span>];
+arr.sort((a,b) => a.compareTo(b)); <span class="comment">// Ascending</span>
+arr.sort((a,b) => b.compareTo(a)); <span class="comment">// Descending</span>
+
+<span class="comment">// Sort intervals by start value</span>
+<span class="keyword">var</span> intervals = [[<span class="number">1</span>,<span class="number">3</span>],[<span class="number">2</span>,<span class="number">6</span>],[<span class="number">8</span>,<span class="number">10</span>],[<span class="number">15</span>,<span class="number">18</span>]];
+intervals.sort((a,b) => a[<span class="number">0</span>].compareTo(b[<span class="number">0</span>]));
+
+<span class="comment">// Functional Iterators (Lazy Evaluated)</span>
+<span class="keyword">var</span> evens = arr.where((x) => x.isEven);
+<span class="keyword">var</span> mapped = arr.map((x) => x * <span class="number">2</span>);
+<span class="keyword">var</span> sum = arr.reduce((a, b) => a + b);
+
+<span class="comment">// Min & Max value (O(N))</span>
+<span class="keyword">import</span> <span class="string">'dart:math'</span>;
+<span class="keyword">var</span> maxVal = arr.reduce(max);
+<span class="keyword">var</span> minVal = arr.reduce(min);
+
+<span class="comment">// String manipulations (O(N))</span>
+<span class="keyword">var</span> s = <span class="string">"hello"</span>;
+<span class="keyword">for</span> (<span class="keyword">var</span> char <span class="keyword">in</span> s.split(<span class="string">''</span>)) { }
+<span class="keyword">var</span> reversed = s.split(<span class="string">''</span>).reversed.join();
+
+<span class="comment">// StringBuffer (O(N))</span>
+<span class="keyword">var</span> message = <span class="type">StringBuffer</span>();
+<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) {
+  message.write(<span class="string">'!'</span>);
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Queues -->
+        <section class="card">
+            <h2>Queues (FIFO & Deque)</h2>
+            <p class="subtitle">Uses <code>dart:collection</code>. Circular buffer backed.</p>
+            <div class="code-block">
+                <pre><code><span class="keyword">import</span> <span class="string">'dart:collection'</span>;
+
+<span class="keyword">var</span> queue = <span class="type">Queue</span>&lt;<span class="type">int</span>&gt;(); <span class="comment">// A DoubleLinkedQueue</span>
+
+<span class="comment">// FIFO: Enqueue & Dequeue (O(1))</span>
+queue.addLast(<span class="number">1</span>);     <span class="comment">// Alias: queue.add()</span>
+<span class="keyword">if</span> (queue.isNotEmpty) {
+  <span class="keyword">var</span> front = queue.removeFirst();
+}
+
+<span class="comment">// Deque: Double-Ended Operations (O(1))</span>
+queue.addFirst(<span class="number">0</span>);    <span class="comment">// Push front</span>
+queue.removeLast();   <span class="comment">// Pop back</span>
+queue.first;          <span class="comment">// Peek front</span>
+queue.last;           <span class="comment">// Peek back</span></code></pre>
+            </div>
+        </section>
+
         <!-- Sets -->
         <section class="card">
             <h2>Sets (Hash Sets)</h2>
@@ -153,29 +282,6 @@ stack.add(<span class="number">2</span>);
             </div>
         </section>
 
-        <!-- Queues -->
-        <section class="card">
-            <h2>Queues (FIFO & Deque)</h2>
-            <p class="subtitle">Uses <code>dart:collection</code>. Circular buffer backed.</p>
-            <div class="code-block">
-                <pre><code><span class="keyword">import</span> <span class="string">'dart:collection'</span>;
-
-<span class="keyword">var</span> queue = <span class="type">Queue</span>&lt;<span class="type">int</span>&gt;(); <span class="comment">// A DoubleLinkedQueue</span>
-
-<span class="comment">// FIFO: Enqueue & Dequeue (O(1))</span>
-queue.addLast(<span class="number">1</span>);     <span class="comment">// Alias: queue.add()</span>
-<span class="keyword">if</span> (queue.isNotEmpty) {
-  <span class="keyword">var</span> front = queue.removeFirst();
-}
-
-<span class="comment">// Deque: Double-Ended Operations (O(1))</span>
-queue.addFirst(<span class="number">0</span>);    <span class="comment">// Push front</span>
-queue.removeLast();   <span class="comment">// Pop back</span>
-queue.first;          <span class="comment">// Peek front</span>
-queue.last;           <span class="comment">// Peek back</span></code></pre>
-            </div>
-        </section>
-
         <!-- Heaps / Priority Queue -->
         <section class="card">
             <h2>Priority Queue (Heaps)</h2>
@@ -217,42 +323,6 @@ treeSet.addAll([<span class="number">5</span>, <span class="number">1</span>, <s
             </div>
         </section>
 
-        <!-- Sorting & Algos -->
-        <section class="card">
-            <h2>Common Algorithms</h2>
-            <div class="code-block">
-                <pre><code><span class="comment">// In-place Sorting (O(N log N))</span>
-<span class="keyword">var</span> arr = [<span class="number">3</span>, <span class="number">1</span>, <span class="number">5</span>];
-arr.sort((a,b) => a.compareTo(b)); <span class="comment">// Ascending</span>
-arr.sort((a,b) => b.compareTo(a)); <span class="comment">// Descending</span>
-
-<span class="comment">// Sort intervals by start value</span>
-<span class="keyword">var</span> intervals = [[<span class="number">1</span>,<span class="number">3</span>],[<span class="number">2</span>,<span class="number">6</span>],[<span class="number">8</span>,<span class="number">10</span>],[<span class="number">15</span>,<span class="number">18</span>]];
-intervals.sort((a,b) => a[<span class="number">0</span>].compareTo(b[<span class="number">0</span>]));
-
-<span class="comment">// Functional Iterators (Lazy Evaluated)</span>
-<span class="keyword">var</span> evens = arr.where((x) => x.isEven);
-<span class="keyword">var</span> mapped = arr.map((x) => x * <span class="number">2</span>);
-<span class="keyword">var</span> sum = arr.reduce((a, b) => a + b);
-
-<span class="comment">// Min & Max value (O(N))</span>
-<span class="keyword">import</span> <span class="string">'dart:math'</span>;
-<span class="keyword">var</span> maxVal = arr.reduce(max);
-<span class="keyword">var</span> minVal = arr.reduce(min);
-
-<span class="comment">// String manipulations (O(N))</span>
-<span class="keyword">var</span> s = <span class="string">"hello"</span>;
-<span class="keyword">for</span> (<span class="keyword">var</span> char <span class="keyword">in</span> s.split(<span class="string">''</span>)) { }
-<span class="keyword">var</span> reversed = s.split(<span class="string">''</span>).reversed.join();
-
-<span class="comment">// StringBuffer (O(N))</span>
-<span class="keyword">var</span> message = <span class="type">StringBuffer</span>();
-<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) {
-  message.write(<span class="string">'!'</span>);
-}</code></pre>
-            </div>
-        </section>
-        
         <!-- Quicksort -->
         <section class="card">
             <h2>Quicksort (Divide & Conquer)</h2>
@@ -378,82 +448,12 @@ record.name;    <span class="comment">// 'Dart'</span>
 //     100  → 4</span>
 <span class="keyword">var</span> xor = <span class="number">5</span> ^ <span class="number">1</span>;
 
-<span class="comment">// Shift Left (&lt;&lt;) - Shifts bits left by n
+<span class="comment">// Shift Left (<<) - Shifts bits left by n
 // 1 = 001
-// &lt;&lt; 2
+// << 2
 // ---------
 //     100  → 4</span>
 <span class="keyword">var</span> shift = <span class="number">1</span> &lt;&lt; <span class="number">2</span>;</code></pre>
-            </div>
-        </section>
-
-        <!-- Matrices -->
-        <section class="card">
-            <h2>Matrices (2D Grids)</h2>
-            <div class="code-block">
-                <pre><code><span class="comment">// Init N x M matrix with 0s (e.g. 3x4)</span>
-<span class="keyword">var</span> zeros = <span class="type">List</span>.generate(<span class="number">3</span>, (_) => <span class="type">List</span>.filled(<span class="number">4</span>, <span class="number">0</span>));
-
-<span class="keyword">var</span> grid = [
-  [<span class="number">1</span>, <span class="number">2</span>],
-  [<span class="number">3</span>, <span class="number">4</span>]
-];
-<span class="comment">// Flattening a 2D array</span>
-<span class="keyword">var</span> flat = grid.expand((i) => i).toList();
-
-<span class="comment">// 2D Iteration (Forward & Reverse)</span>
-<span class="keyword">for</span> (<span class="keyword">var</span> r = <span class="number">0</span>; r &lt; grid.length; r++) {
-  <span class="keyword">for</span> (<span class="keyword">var</span> c = <span class="number">0</span>; c &lt; grid[r].length; c++) {
-    <span class="keyword">var</span> val = grid[r][c];
-  }
-}
-<span class="keyword">for</span> (<span class="keyword">var</span> r = grid.length - <span class="number">1</span>; r &gt;= <span class="number">0</span>; r--) {
-  <span class="keyword">for</span> (<span class="keyword">var</span> c = grid[r].length - <span class="number">1</span>; c &gt;= <span class="number">0</span>; c--) {
-    <span class="keyword">var</span> val = grid[r][c];
-  }
-}
-
-<span class="comment">// 4-Directional Traversal</span>
-<span class="keyword">var</span> dirs = [[<span class="number">0</span>,<span class="number">1</span>], [<span class="number">1</span>,<span class="number">0</span>], [<span class="number">0</span>,-<span class="number">1</span>], [-<span class="number">1</span>,<span class="number">0</span>]];
-<span class="keyword">for</span> (<span class="keyword">var</span> d <span class="keyword">in</span> dirs) {
-  <span class="keyword">var</span> nr = r + d[<span class="number">0</span>], nc = c + d[<span class="number">1</span>];
-}
-
-<span class="comment">// Recursive Grid DFS</span>
-<span class="keyword">var</span> vis = &lt;(<span class="type">int</span>, <span class="type">int</span>)&gt;{};
-<span class="keyword">void</span> dfs(<span class="type">int</span> r, <span class="type">int</span> c) {
-  <span class="keyword">if</span> (r &lt; <span class="number">0</span> || r &gt;= R || c &lt; <span class="number">0</span> || c &gt;= C || !vis.add((r, c))) <span class="keyword">return</span>;
-  <span class="keyword">for</span> (<span class="keyword">var</span> d <span class="keyword">in</span> dirs) dfs(r + d[<span class="number">0</span>], c + d[<span class="number">1</span>]);
-}
-
-<span class="comment">// Iterative Grid BFS (Queue)</span>
-<span class="keyword">void</span> bfs(<span class="type">int</span> startR, <span class="type">int</span> startC) {
-  <span class="keyword">var</span> q = <span class="type">Queue</span>&lt;(<span class="type">int</span>, <span class="type">int</span>)&gt;()..add((startR, startC));
-  <span class="keyword">var</span> vis = { (startR, startC) };
-  <span class="keyword">while</span> (q.isNotEmpty) {
-    <span class="keyword">var</span> (r, c) = q.removeFirst();
-    <span class="keyword">for</span> (<span class="keyword">var</span> d <span class="keyword">in</span> dirs) {
-      <span class="keyword">var</span> nr = r + d[<span class="number">0</span>], nc = c + d[<span class="number">1</span>];
-      <span class="keyword">if</span> (nr &gt;= <span class="number">0</span> && nr &lt; R && nc &gt;= <span class="number">0</span> && nc &lt; C && vis.add((nr, nc))) {
-        q.add((nr, nc));
-      }
-    }
-  }
-}</code></pre>
-            </div>
-        </section>
-
-        <!-- Recursion -->
-        <section class="card">
-            <h2>Recursion & Memoization</h2>
-            <div class="code-block">
-                <pre><code><span class="keyword">var</span> memo = &lt;<span class="type">int</span>, <span class="type">int</span>&gt;{};
-
-<span class="type">int</span> fib(<span class="type">int</span> n) {
-  <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> n;
-  <span class="keyword">if</span> (memo.containsKey(n)) <span class="keyword">return</span> memo[n]!;
-  <span class="keyword">return</span> memo[n] = fib(n - <span class="number">1</span>) + fib(n - <span class="number">2</span>);
-}</code></pre>
             </div>
         </section>
 
@@ -495,6 +495,29 @@ record.name;    <span class="comment">// 'Dart'</span>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="wallpaper.js"></script>
+    <script>
+        // CSS Grid masonry: span each card the correct number of 10px rows
+        const ROW_HEIGHT = 10; // matches grid-auto-rows: 10px
+        const ROW_GAP = 24;   // matches gap: 1.5rem (1.5 * 16px)
+
+        function applyMasonry() {
+            const grid = document.querySelector('.grid-container');
+            if (!grid) return;
+            const cards = grid.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.style.gridRowEnd = 'auto'; // reset
+            });
+            cards.forEach(card => {
+                const height = card.getBoundingClientRect().height;
+                const rowSpan = Math.ceil((height + ROW_GAP) / (ROW_HEIGHT + ROW_GAP));
+                card.style.gridRowEnd = `span ${rowSpan}`;
+            });
+        }
+
+        // Run after fonts/images load for accurate heights
+        window.addEventListener('load', applyMasonry);
+        window.addEventListener('resize', applyMasonry);
+    </script>
     <script>
         document.getElementById('current-year').textContent = new Date().getFullYear();
 

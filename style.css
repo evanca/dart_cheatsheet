@@ -146,12 +146,15 @@ header p {
 }
 
 /* 
- * Multi-column grid optimized for packing. 
- * Allows blocks to automatically waterfall densely.
+ * CSS Grid masonry: 10px row units + JS row-span per card.
+ * Preserves HTML order (left-to-right rows) while packing cards tightly.
  */
 .grid-container {
-    column-count: 3;
-    column-gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 10px;
+    gap: 1.5rem;
+    align-items: start;
 }
 
 .card {
@@ -159,8 +162,6 @@ header p {
     border: 1px solid var(--border-color);
     border-radius: 10px;
     padding: 1.25rem;
-    margin-bottom: 1.5rem;
-    break-inside: avoid; /* Prevent card splitting across columns */
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -230,7 +231,7 @@ header p {
 /* Responsive Design */
 @media screen and (max-width: 1024px) {
     .grid-container {
-        column-count: 2;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -246,7 +247,7 @@ header p {
     }
 
     .grid-container {
-        column-count: 1;
+        grid-template-columns: 1fr;
     }
 }
 
@@ -309,8 +310,8 @@ header p {
     }
     
     .grid-container {
-        column-count: 3;
-        column-gap: 12mm; /* Ensure nice gaps when printed */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12mm;
     }
 
     header {
