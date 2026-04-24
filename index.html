@@ -489,6 +489,56 @@ record.name;    <span class="comment">// 'Dart'</span>
 
     </main>
 
+    <section class="examples-section">
+        <h2>Concrete Examples</h2>
+        <article class="example-card">
+            <h3>Leetcode 295. Find Median from Data Stream</h3>
+            <div class="code-block">
+                <pre><code>import 'package:collection/collection.dart';
+
+class MedianFinder {
+  // Max heap via negated values
+  final PriorityQueue&lt;int&gt; left = PriorityQueue&lt;int&gt;(); 
+  // Min heap
+  final PriorityQueue&lt;int&gt; right = PriorityQueue&lt;int&gt;(); 
+
+  int get _leftLen =&gt; left.length;
+  int get _rightLen =&gt; right.length;
+
+  void addNum(int num) {
+    left.add(-num);
+
+    if (_leftLen &gt; 0 &amp;&amp; _rightLen &gt; 0 &amp;&amp; -left.first &gt; right.first) {
+      right.add(-left.removeFirst());
+    }
+
+    if (_leftLen &gt; _rightLen + 1) {
+      right.add(-left.removeFirst());
+    }
+
+    if (_rightLen &gt; _leftLen + 1) {
+      left.add(-right.removeFirst());
+    }
+  }
+
+  double findMedian() {
+    if (_leftLen == 0 &amp;&amp; _rightLen == 0) {
+      throw StateError('Cannot find median of an empty stream.');
+    }
+
+    if (_leftLen == _rightLen) {
+      return (-left.first + right.first) / 2.0;
+    }
+
+    return _leftLen &gt; _rightLen
+        ? -left.first.toDouble()
+        : right.first.toDouble();
+  }
+}</code></pre>
+            </div>
+        </article>
+    </section>
+
     <footer class="site-footer">
         <p>&copy; <span id="current-year"></span> <a href="https://happycode.studio" target="_blank" rel="noopener noreferrer">happycode.studio</a>. All rights reserved.</p>
     </footer>

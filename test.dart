@@ -32,7 +32,46 @@ void main() {
   testRecords();
   testControlFlow();
   testReverseList();
+  testMedianFinder();
   print("All tests passed! The cheatsheet code is fully valid.");
+}
+
+class MedianFinder {
+  final PriorityQueue<int> left = PriorityQueue<int>();
+  final PriorityQueue<int> right = PriorityQueue<int>();
+
+  int get _leftLen => left.length;
+  int get _rightLen => right.length;
+
+  void addNum(int num) {
+    left.add(-num);
+
+    if (_leftLen > 0 && _rightLen > 0 && -left.first > right.first) {
+      right.add(-left.removeFirst());
+    }
+
+    if (_leftLen > _rightLen + 1) {
+      right.add(-left.removeFirst());
+    }
+
+    if (_rightLen > _leftLen + 1) {
+      left.add(-right.removeFirst());
+    }
+  }
+
+  double findMedian() {
+    if (_leftLen == 0 && _rightLen == 0) {
+      throw StateError('Cannot find median of an empty stream.');
+    }
+
+    if (_leftLen == _rightLen) {
+      return (-left.first + right.first) / 2.0;
+    }
+
+    return _leftLen > _rightLen
+        ? -left.first.toDouble()
+        : right.first.toDouble();
+  }
 }
 
 void testLists() {
@@ -446,4 +485,14 @@ void testControlFlow() {
     _ => 'many'
   };
   assert(res == 'one');
+}
+
+void testMedianFinder() {
+  final medianFinder = MedianFinder();
+
+  medianFinder.addNum(1);
+  medianFinder.addNum(2);
+  assert((medianFinder.findMedian() - 1.5).abs() < 0.00001);
+  medianFinder.addNum(3);
+  assert((medianFinder.findMedian() - 2.0).abs() < 0.00001);
 }
