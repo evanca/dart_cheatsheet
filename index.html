@@ -487,6 +487,39 @@ record.name;    <span class="comment">// 'Dart'</span>
             </div>
         </section>
 
+        <!-- DFS with Backtracking -->
+        <section class="card">
+            <h2>DFS with Backtracking</h2>
+            <div class="code-block">
+                <pre><code><span class="comment">// Generate all city combinations using DFS with backtracking</span>
+<span class="type">List</span>&lt;<span class="type">List</span>&lt;<span class="type">String</span>&gt;&gt; cityPlans(<span class="type">List</span>&lt;<span class="type">String</span>&gt; cities) {
+  <span class="comment">// Result stores all built combinations</span>
+  <span class="keyword">final</span> result = &lt;<span class="type">List</span>&lt;<span class="type">String</span>&gt;&gt;[];
+  <span class="keyword">final</span> path = &lt;<span class="type">String</span>&gt;[];
+
+  <span class="keyword">void</span> dfs(<span class="type">int</span> start) {
+    result.add(path.toList());
+
+    <span class="keyword">for</span> (<span class="keyword">var</span> i = start; i &lt; cities.length; i++) {
+      <span class="comment">// Choose next city</span>
+      path.add(cities[i]);
+      <span class="comment">// Explore next choices</span>
+      dfs(i + <span class="number">1</span>);
+      <span class="comment">// Un-choose to backtrack</span>
+      path.removeLast();
+    }
+  }
+
+  dfs(<span class="number">0</span>);
+  <span class="keyword">return</span> result;
+}
+
+<span class="keyword">final</span> plans = cityPlans([<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>]);
+<span class="comment">// Plans:
+// [], [A], [A,B], [A,B,C], [A,C], [B], [B,C], [C]</span></code></pre>
+            </div>
+        </section>
+
     </main>
 
     <section class="examples-section">

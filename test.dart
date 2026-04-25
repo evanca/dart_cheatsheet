@@ -34,6 +34,7 @@ void main() {
   testReverseList();
   testMedianFinder();
   testNetworkDelayTime();
+  testDfsBacktracking();
   print("All tests passed! The cheatsheet code is fully valid.");
 }
 
@@ -553,4 +554,34 @@ void testNetworkDelayTime() {
 
   assert(solution.networkDelayTime([[1, 2, 1]], 2, 1) == 1);
   assert(solution.networkDelayTime([[1, 2, 1]], 2, 2) == -1);
+}
+
+List<List<String>> cityPlansWithDfs(List<String> cities) {
+  final result = <List<String>>[];
+  final path = <String>[];
+
+  void dfs(int start) {
+    result.add(path.toList());
+
+    for (var i = start; i < cities.length; i++) {
+      path.add(cities[i]);
+      dfs(i + 1);
+      path.removeLast();
+    }
+  }
+
+  dfs(0);
+  return result;
+}
+
+void testDfsBacktracking() {
+  final plans = cityPlansWithDfs(['A', 'B', 'C']);
+  final serialized = plans.map((p) => p.join()).toList();
+
+  assert(
+    const DeepCollectionEquality().equals(
+      serialized,
+      ['', 'A', 'AB', 'ABC', 'AC', 'B', 'BC', 'C'],
+    ),
+  );
 }
