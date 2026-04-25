@@ -35,6 +35,7 @@ void main() {
   testMedianFinder();
   testNetworkDelayTime();
   testDfsBacktracking();
+  testTopologicalSort();
   print("All tests passed! The cheatsheet code is fully valid.");
 }
 
@@ -584,4 +585,64 @@ void testDfsBacktracking() {
       ['', 'A', 'AB', 'ABC', 'AC', 'B', 'BC', 'C'],
     ),
   );
+}
+
+List<String> topoSort(Map<String, List<String>> graph) {
+  final indegree = <String, int>{};
+
+  for (var node in graph.keys) {
+    indegree[node] = 0;
+  }
+
+  for (var neighbors in graph.values) {
+    for (var n in neighbors) {
+      indegree[n] = (indegree[n] ?? 0) + 1;
+    }
+  }
+
+  final queue = <String>[];
+  for (var entry in indegree.entries) {
+    if (entry.value == 0) queue.add(entry.key);
+  }
+
+  final result = <String>[];
+
+  while (queue.isNotEmpty) {
+    final node = queue.removeAt(0);
+    result.add(node);
+
+    for (var neighbor in graph[node] ?? <String>[]) {
+      indegree[neighbor] = indegree[neighbor]! - 1;
+      if (indegree[neighbor] == 0) {
+        queue.add(neighbor);
+      }
+    }
+  }
+
+  return result;
+}
+
+void testTopologicalSort() {
+  final graph = <String, List<String>>{
+    'A': ['C'],
+    'B': ['C', 'D'],
+    'C': ['E'],
+    'D': ['F'],
+    'E': ['H', 'F'],
+    'F': ['G'],
+    'G': [],
+    'H': [],
+  };
+
+  final order = topoSort(graph);
+  final position = <String, int>{
+    for (var i = 0; i < order.length; i++) order[i]: i,
+  };
+
+  assert(order.length == graph.length);
+  for (final entry in graph.entries) {
+    for (final neighbor in entry.value) {
+      assert(position[entry.key]! < position[neighbor]!);
+    }
+  }
 }

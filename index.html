@@ -487,6 +487,51 @@ record.name;    <span class="comment">// 'Dart'</span>
             </div>
         </section>
 
+        <!-- Topological Sort -->
+        <section class="card">
+            <h2>Topological Sort</h2>
+            <div class="code-block">
+                <pre><code><span class="comment">// Kahn with BFS:</span>
+
+<span class="type">List</span>&lt;<span class="type">String</span>&gt; topoSort(<span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">List</span>&lt;<span class="type">String</span>&gt;&gt; graph) {
+  <span class="keyword">final</span> indegree = &lt;<span class="type">String</span>, <span class="type">int</span>&gt;{};
+
+  <span class="comment">// Initialize indegree</span>
+  <span class="keyword">for</span> (<span class="keyword">var</span> node <span class="keyword">in</span> graph.keys) {
+    indegree[node] = <span class="number">0</span>;
+  }
+
+  <span class="keyword">for</span> (<span class="keyword">var</span> neighbors <span class="keyword">in</span> graph.values) {
+    <span class="keyword">for</span> (<span class="keyword">var</span> n <span class="keyword">in</span> neighbors) {
+      indegree[n] = (indegree[n] ?? <span class="number">0</span>) + <span class="number">1</span>;
+    }
+  }
+
+  <span class="comment">// Queue of nodes with indegree 0</span>
+  <span class="keyword">final</span> queue = &lt;<span class="type">String</span>&gt;[];
+  <span class="keyword">for</span> (<span class="keyword">var</span> entry <span class="keyword">in</span> indegree.entries) {
+    <span class="keyword">if</span> (entry.value == <span class="number">0</span>) queue.add(entry.key);
+  }
+
+  <span class="keyword">final</span> result = &lt;<span class="type">String</span>&gt;[];
+
+  <span class="keyword">while</span> (queue.isNotEmpty) {
+    <span class="keyword">final</span> node = queue.removeAt(<span class="number">0</span>);
+    result.add(node);
+
+    <span class="keyword">for</span> (<span class="keyword">var</span> neighbor <span class="keyword">in</span> graph[node] ?? []) {
+      indegree[neighbor] = indegree[neighbor]! - <span class="number">1</span>;
+      <span class="keyword">if</span> (indegree[neighbor] == <span class="number">0</span>) {
+        queue.add(neighbor);
+      }
+    }
+  }
+
+  <span class="keyword">return</span> result;
+}</code></pre>
+            </div>
+        </section>
+
         <!-- DFS with Backtracking -->
         <section class="card">
             <h2>DFS with Backtracking</h2>
