@@ -36,6 +36,7 @@ void main() {
   testNetworkDelayTime();
   testDfsBacktracking();
   testTopologicalSort();
+  testClimb();
   print("All tests passed! The cheatsheet code is fully valid.");
 }
 
@@ -645,4 +646,24 @@ void testTopologicalSort() {
       assert(position[entry.key]! < position[neighbor]!);
     }
   }
+}
+
+int climb(int n) {
+  final dp = List<int>.filled(n + 1, 0);
+  dp[0] = 1;
+  dp[1] = 1;
+
+  for (var i = 2; i <= n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2];
+  }
+
+  return dp[n];
+}
+
+void testClimb() {
+  assert(climb(1) == 1);
+  assert(climb(2) == 2);
+  assert(climb(3) == 3);
+  assert(climb(4) == 5);
+  assert(climb(5) == 8);
 }

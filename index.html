@@ -565,6 +565,28 @@ record.name;    <span class="comment">// 'Dart'</span>
             </div>
         </section>
 
+        <!-- Dynamic Programming -->
+        <section class="card">
+            <h2>Dynamic Programming</h2>
+            <div class="code-block">
+                <pre><code><span class="type">int</span> climb(<span class="type">int</span> n) {
+  <span class="comment">// dp[i] = number of ways to reach step i</span>
+  <span class="keyword">final</span> dp = <span class="type">List</span>&lt;<span class="type">int</span>&gt;.filled(n + <span class="number">1</span>, <span class="number">0</span>);
+
+  <span class="comment">// Base cases</span>
+  dp[<span class="number">0</span>] = <span class="number">1</span>;
+  dp[<span class="number">1</span>] = <span class="number">1</span>;
+
+  <span class="comment">// Build up</span>
+  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">2</span>; i &lt;= n; i++) {
+    dp[i] = dp[i - <span class="number">1</span>] + dp[i - <span class="number">2</span>];
+  }
+
+  <span class="keyword">return</span> dp[n];
+}</code></pre>
+            </div>
+        </section>
+
     </main>
 
     <section class="examples-section">
