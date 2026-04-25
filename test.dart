@@ -33,6 +33,7 @@ void main() {
   testControlFlow();
   testReverseList();
   testMedianFinder();
+  testNetworkDelayTime();
   print("All tests passed! The cheatsheet code is fully valid.");
 }
 
@@ -71,6 +72,43 @@ class MedianFinder {
     return _leftLen > _rightLen
         ? -left.first.toDouble()
         : right.first.toDouble();
+  }
+}
+
+class Solution {
+  int networkDelayTime(List<List<int>> times, int n, int k) {
+    final Map<int, List<({int to, int weight})>> graph = {};
+
+    for (final edge in times) {
+      final [u, v, w] = edge;
+      graph.putIfAbsent(u, () => []);
+      graph[u]!.add((to: v, weight: w));
+    }
+
+    final minHeap = PriorityQueue<({int dist, int node})>(
+      (a, b) => a.dist.compareTo(b.dist),
+    );
+    minHeap.add((dist: 0, node: k));
+
+    final visited = <int>{};
+    int maxTime = 0;
+
+    while (minHeap.isNotEmpty) {
+      final current = minHeap.removeFirst();
+      final node = current.node;
+      final dist = current.dist;
+
+      if (!visited.add(node)) continue;
+      maxTime = maxTime > dist ? maxTime : dist;
+
+      for (final edge in graph[node] ?? <({int to, int weight})>[]) {
+        if (!visited.contains(edge.to)) {
+          minHeap.add((dist: dist + edge.weight, node: edge.to));
+        }
+      }
+    }
+
+    return visited.length == n ? maxTime : -1;
   }
 }
 
@@ -495,4 +533,24 @@ void testMedianFinder() {
   assert((medianFinder.findMedian() - 1.5).abs() < 0.00001);
   medianFinder.addNum(3);
   assert((medianFinder.findMedian() - 2.0).abs() < 0.00001);
+}
+
+void testNetworkDelayTime() {
+  final solution = Solution();
+
+  assert(
+    solution.networkDelayTime(
+      [
+        [2, 1, 1],
+        [2, 3, 1],
+        [3, 4, 1],
+      ],
+      4,
+      2,
+    ) ==
+        2,
+  );
+
+  assert(solution.networkDelayTime([[1, 2, 1]], 2, 1) == 1);
+  assert(solution.networkDelayTime([[1, 2, 1]], 2, 2) == -1);
 }

@@ -537,6 +537,67 @@ class MedianFinder {
 }</code></pre>
             </div>
         </article>
+        <article class="example-card">
+            <h3>LeetCode 743. Network Delay Time</h3>
+            <div class="code-block">
+                <pre><code>import 'package:collection/collection.dart';
+
+class Solution {
+  int networkDelayTime(List&lt;List&lt;int&gt;&gt; times, int n, int k) {
+    // graph[u] contains all outgoing edges from node u.
+    // Example: graph[2] = [(to: 1, weight: 1), (to: 3, weight: 4)]
+    final Map&lt;int, List&lt;({int to, int weight})&gt;&gt; graph = {};
+
+    for (final edge in times) {
+      // Each edge is [from, to, time].
+      // Example: [2, 1, 1] means 2 -&gt; 1 takes 1 unit of time.
+      final [u, v, w] = edge;
+
+      graph.putIfAbsent(u, () =&gt; []);
+      graph[u]!.add((to: v, weight: w));
+    }
+
+    // Min-heap gives us the node with the smallest distance first.
+    final minHeap = PriorityQueue&lt;({int dist, int node})&gt;(
+      (a, b) =&gt; a.dist.compareTo(b.dist),
+    );
+
+    minHeap.add((dist: 0, node: k));
+
+    // Once a node is visited, its shortest distance is final.
+    final visited = &lt;int&gt;{};
+
+    int maxTime = 0;
+
+    while (minHeap.isNotEmpty) {
+      final current = minHeap.removeFirst();
+
+      final int node = current.node;
+      final int dist = current.dist;
+
+      if (visited.contains(node)) continue;
+
+      visited.add(node);
+
+      // The answer is the largest shortest time.
+      maxTime = maxTime &gt; dist ? maxTime : dist;
+
+      // If this node has no outgoing edges, use an empty list.
+      for (final edge in graph[node] ?? &lt;({int to, int weight})&gt;[]) {
+        final int next = edge.to;
+        final int weight = edge.weight;
+
+        if (!visited.contains(next)) {
+          minHeap.add((dist: dist + weight, node: next));
+        }
+      }
+    }
+
+    return visited.length == n ? maxTime : -1;
+  }
+}</code></pre>
+            </div>
+        </article>
     </section>
 
     <footer class="site-footer">
