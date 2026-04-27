@@ -81,6 +81,7 @@
             label: 'Sort + Max',
             accent: '#fb923c',
             cmds: [
+                "import 'dart:math';",
                 'arr.sort((a, b) =>',
                 '  a.compareTo(b));',
                 'var largest = max(a, b);',
@@ -98,6 +99,7 @@
             label: 'Min Heap',
             accent: '#e879f9',
             cmds: [
+                "import 'package:collection/collection.dart';",
                 'final minHeap =',
                 '  PriorityQueue<List<int>>(',
                 '  (a, b) => a[0]',
@@ -111,6 +113,7 @@
             label: 'Class',
             accent: '#fbbf24',
             cmds: [
+                "import 'package:collection/collection.dart';",
                 'class MedianFinder {',
                 '  final left = PriorityQueue<int>();',
                 '  final right = PriorityQueue<int>();',
@@ -124,6 +127,7 @@
             label: 'Queue',
             accent: '#13b9fd',
             cmds: [
+                "import 'dart:collection';",
                 'var queue = Queue<int>();',
                 'queue.addLast(1);',
                 'if (queue.isNotEmpty)',
