@@ -156,8 +156,8 @@ header p {
  */
 .grid-container {
     display: grid;
-    /* fluid: each column is at least 340px; extras are added automatically */
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    /* fluid: each column is at least 420px; extras are added automatically */
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
     grid-auto-rows: 10px;
     gap: 1.5rem;
     align-items: start;
@@ -166,19 +166,19 @@ header p {
 /* Widen column minimums so cards stay readable at large widths */
 @media screen and (min-width: 1400px) {
     .grid-container {
-        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
     }
 }
 
 @media screen and (min-width: 1800px) {
     .grid-container {
-        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
     }
 }
 
 @media screen and (min-width: 2200px) {
     .grid-container {
-        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
     }
 }
 
@@ -235,7 +235,7 @@ header p {
     border-radius: 8px;
     padding: 0.85rem 1rem;
     border: 1px solid var(--border-color);
-    overflow-x: auto;
+    overflow-x: visible;
 }
 
 .code-block pre {
@@ -243,6 +243,8 @@ header p {
     font-size: 0.825rem;
     line-height: 1.6;
     tab-size: 2;
+    white-space: pre-wrap;      /* wrap long lines, keep indentation */
+    overflow-wrap: break-word;  /* break a single token if it's still too wide */
 }
 
 /* Syntax Colors */
