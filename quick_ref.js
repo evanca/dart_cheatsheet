@@ -56,6 +56,8 @@
                 'list.removeLast();',
                 'var zeros = List.generate(3,',
                 '  (_) => List.filled(4, 0));',
+                'var reversed = s.split(\'\')',
+                '  .reversed.join();',
             ],
         },
         {
