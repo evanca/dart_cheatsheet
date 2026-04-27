@@ -134,6 +134,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    min-height: 1.2em;
 }
 
 /* Allow wrapping for very long lines (like imports) */
