@@ -57,13 +57,11 @@
             ],
         },
         {
-            label: 'Stack',
-            accent: '#38bdf8',
+            label: 'Set',
+            accent: '#4ade80',
             cmds: [
-                'var stack = <int>[];',
-                'stack.add(1);',
-                'var peek = stack.last;',
-                'stack.removeLast();',
+                'var set = <int>{1, 2, 3};',
+                'set.contains(3);',
             ],
         },
         {
@@ -78,21 +76,24 @@
             ],
         },
         {
-            label: 'Sort + Max',
-            accent: '#fb923c',
+            label: 'Stack (DFS)',
+            accent: '#38bdf8',
             cmds: [
-                "import 'dart:math';",
-                'arr.sort((a, b) =>',
-                '  a.compareTo(b));',
-                'var largest = max(a, b);',
+                'var stack = <int>[];',
+                'stack.add(1);',
+                'var peek = stack.last;',
+                'stack.removeLast();',
             ],
         },
         {
-            label: 'Set',
-            accent: '#4ade80',
+            label: 'Queue (BFS)',
+            accent: '#13b9fd',
             cmds: [
-                'var set = <int>{1, 2, 3};',
-                'set.contains(3);',
+                "import 'dart:collection';",
+                'var queue = Queue<int>();',
+                'queue.addLast(1);',
+                'if (queue.isNotEmpty)',
+                '  queue.removeFirst();',
             ],
         },
         {
@@ -110,6 +111,16 @@
             ],
         },
         {
+            label: 'Sort + Max',
+            accent: '#fb923c',
+            cmds: [
+                "import 'dart:math';",
+                'arr.sort((a, b) =>',
+                '  a.compareTo(b));',
+                'var largest = max(a, b);',
+            ],
+        },
+        {
             label: 'Class',
             accent: '#fbbf24',
             cmds: [
@@ -121,17 +132,6 @@
                 '  void addNum(int num) {}',
                 '  double findMedian() {}',
                 '}',
-            ],
-        },
-        {
-            label: 'Queue',
-            accent: '#13b9fd',
-            cmds: [
-                "import 'dart:collection';",
-                'var queue = Queue<int>();',
-                'queue.addLast(1);',
-                'if (queue.isNotEmpty)',
-                '  queue.removeFirst();',
             ],
         },
         {
