@@ -767,20 +767,23 @@ class Solution {
     <script>
         // CSS Grid masonry: span each card the correct number of 10px rows
         const ROW_HEIGHT = 10; // matches grid-auto-rows: 10px
-        const ROW_GAP = 24;   // matches gap: 1.5rem (1.5 * 16px)
 
-        function applyMasonry() {
-            const grid = document.querySelector('.grid-container');
+        function applyMasonryToGrid(gridSelector, cardSelector, rowGap) {
+            const grid = document.querySelector(gridSelector);
             if (!grid) return;
-            const cards = grid.querySelectorAll('.card');
-            cards.forEach(card => {
-                card.style.gridRowEnd = 'auto'; // reset
-            });
+            const cards = grid.querySelectorAll(cardSelector);
+            // Reset first so heights are accurate
+            cards.forEach(card => { card.style.gridRowEnd = 'auto'; });
             cards.forEach(card => {
                 const height = card.getBoundingClientRect().height;
-                const rowSpan = Math.ceil((height + ROW_GAP) / (ROW_HEIGHT + ROW_GAP));
+                const rowSpan = Math.ceil((height + rowGap) / (ROW_HEIGHT + rowGap));
                 card.style.gridRowEnd = `span ${rowSpan}`;
             });
+        }
+
+        function applyMasonry() {
+            applyMasonryToGrid('.grid-container', '.card', 24);      // gap: 1.5rem = 24px
+            applyMasonryToGrid('.examples-section', '.example-card', 16); // gap: 1rem = 16px
         }
 
         // Run after fonts/images load for accurate heights
