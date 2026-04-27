@@ -159,6 +159,14 @@
             cmds: [
                 'var div = 5 ~/ 2; // 2',
                 'var mod = 5 % 2;  // 1',
+                'var evens = arr.where(',
+                '  (x) => x.isEven);',
+                'var mapped = arr.map(',
+                '  (x) => x * 2);',
+                'var sum = arr.reduce(',
+                '  (a, b) => a + b);',
+                'var xor = 5 ^ 1;',
+                'var shiftLeft = 1 << 2;',
             ],
         },
     ];
