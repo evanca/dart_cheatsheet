@@ -299,7 +299,13 @@ minHeap.add(<span class="number">1</span>);
 <span class="comment">// Max-Heap (via -1 Hack for numericals)</span>
 <span class="keyword">var</span> maxQ = <span class="type">PriorityQueue</span>&lt;<span class="type">int</span>&gt;();
 maxQ.addAll([-<span class="number">3</span>, -<span class="number">8</span>, -<span class="number">2</span>]);
-<span class="built_in">print</span>(-maxQ.removeFirst()); <span class="comment">// 8</span></code></pre>
+<span class="built_in">print</span>(-maxQ.removeFirst()); <span class="comment">// 8</span>
+
+<span class="comment">// Typed record payload (distance + coordinates)</span>
+<span class="keyword">final</span> pq = <span class="type">PriorityQueue</span>&lt;({<span class="type">int</span> dist, <span class="type">int</span> r, <span class="type">int</span> c})&gt;(
+  (a, b) => a.dist.compareTo(b.dist),
+);
+pq.add((dist: <span class="number">5</span>, r: <span class="number">0</span>, c: <span class="number">0</span>));</code></pre>
             </div>
         </section>
         
@@ -694,6 +700,57 @@ class Solution {
     }
 
     return visited.length == n ? maxTime : -1;
+  }
+}</code></pre>
+            </div>
+        </article>
+        <article class="example-card">
+            <h3>LeetCode 778. Swim in Rising Water</h3>
+            <div class="code-block">
+                <pre><code>import "dart:math";
+import "package:collection/collection.dart";
+
+class Solution {
+  int swimInWater(List&lt;List&lt;int&gt;&gt; grid) {
+    final visited = &lt;(int, int)&gt;{};
+    final minHeap = PriorityQueue&lt;List&lt;int&gt;&gt;(
+      (a, b) =&gt; a[0].compareTo(b[0]),
+    );
+
+    final rows = grid.length;
+    final cols = grid[0].length;
+
+    minHeap.add([grid[0][0], 0, 0]);
+
+    while (minHeap.isNotEmpty) {
+      final current = minHeap.removeFirst();
+      final time = current[0];
+      final row = current[1];
+      final col = current[2];
+
+      if (visited.contains((row, col))) continue;
+      visited.add((row, col));
+
+      if (row == rows - 1 && col == cols - 1) {
+        return time;
+      }
+
+      for (final dir in [[0, 1], [0, -1], [1, 0], [-1, 0]]) {
+        final newRow = row + dir[0];
+        final newCol = col + dir[1];
+
+        if (newRow &lt; 0 || newRow &gt;= rows || newCol &lt; 0 || newCol &gt;= cols) {
+          continue;
+        }
+
+        if (visited.contains((newRow, newCol))) continue;
+
+        final newTime = max(time, grid[newRow][newCol]);
+        minHeap.add([newTime, newRow, newCol]);
+      }
+    }
+
+    return -1;
   }
 }</code></pre>
             </div>
