@@ -88,6 +88,20 @@
     -webkit-backdrop-filter: blur(16px);
 }
 
+/* ── Responsive wrapping for smaller screens ── */
+@media (max-width: 1400px) {
+    #quick-ref-body {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 0.5rem;
+    }
+    .qr-group {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        padding-bottom: 0.5rem;
+    }
+    .qr-group:last-child { border-bottom: none; }
+}
+
 /* ── One vertical column per category ── */
 .qr-group {
     display: flex;
@@ -118,13 +132,18 @@
     align-items: baseline;
     gap: 0.35rem;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
+/* Allow wrapping for very long lines (like imports) */
 .qr-line code {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
     color: #cbd5e1;
     line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-all;
 }
 
 .qr-line .qr-note {
@@ -137,4 +156,14 @@
 
 /* Syntax span colours are inherited from style.css via the CSS variables set above.
    No extra rules needed — .keyword { color: var(--keyword) } etc. already apply. */
+
+/* ── Large monitor (1920px+) ── */
+@media (min-width: 1920px) {
+    #quick-ref-title { font-size: 0.85rem; }
+    #quick-ref-toggle-btn { font-size: 0.75rem; }
+    #quick-ref-chevron { font-size: 0.7rem; }
+    .qr-label { font-size: 0.75rem; }
+    .qr-line code { font-size: 0.85rem; }
+    .qr-line .qr-note { font-size: 0.7rem; }
+}
 
